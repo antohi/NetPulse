@@ -1,4 +1,6 @@
 import Scan
 
 s = Scan.Scan()
-s.scan()
+current_scan = s.scan()
+
+s.get_current_results(current_scan)
