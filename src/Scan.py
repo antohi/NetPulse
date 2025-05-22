@@ -3,11 +3,13 @@ from scapy.layers.l2 import ARP, Ether, arping
 import socket
 
 from src.ScoreDevices import ScoreDevices
+from src.NetUtils import NetUtils
 
 
 class Scan:
     def __init__(self):
-        self.target_ip = "192.168.0.0/24"
+        nu = NetUtils()
+        self.target_ip = nu.get_local_subnet()
         self.arp = ARP(pdst=self.target_ip)
         self.ether = Ether(dst="ff:ff:ff:ff:ff:ff")
         self.scanned = {}
