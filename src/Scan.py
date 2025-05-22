@@ -21,20 +21,22 @@ class Scan:
         pckt = self.ether / self.arp # Sets up packet to be sent out
         result = srp(pckt, timeout=1, verbose=0)[0]
         for sent, received in result:
-            score = self.sd.score_device(received.hwsrc)
-            self.scanned[received.psrc] =  [received.hwsrc, score]
-            current_scanned[received.psrc] = [received.hwsrc, score]
+            vendor = self.sd.get_vendor(received.hwsrc)
+            trust_score = self.sd.score_vendor(vendor)
+
+            self.scanned[received.psrc] =  [received.hwsrc, vendor, trust_score]
+            current_scanned[received.psrc] = [received.hwsrc, vendor, trust_score]
         return current_scanned
 
     # Gets all results from all scans completed
     def get_all_results(self):
         for ip, info in self.scanned.items():
-            print(f"{ip}: {info[0]}, SCORE: {info[1]}")
+            print(f"{ip}: {info[0]}, VENDOR: {info[1]}, SCORE: {info[2]}")
 
     # Gets the results from only the current scan completed
     def get_current_results(self, current_scanned):
         for ip, info in current_scanned.items():
-            print(f"{ip}: {info[0]}, SCORE: {info[1]}")
+            print(f"{ip}: {info[0]}, VENDOR: {info[1]}, SCORE: {info[2]}")
 
 
 

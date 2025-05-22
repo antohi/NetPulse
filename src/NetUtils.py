@@ -3,6 +3,7 @@ import netifaces
 
 class NetUtils:
 
+    # Automatically pulls local subnet IP address
     @staticmethod
     def get_local_subnet() -> str:
         iface = netifaces.gateways()['default'][netifaces.AF_INET][1]
