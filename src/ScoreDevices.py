@@ -10,10 +10,12 @@ class ScoreDevices:
         ]
         self.parser = manuf.MacParser()
         self.vendor_trust = ""
+        self.vendor_name = ""
 
     # Collects vendor manufacturer info
     def get_vendor(self, mac) -> str:
-        return self.parser.get_manuf(mac) or "UNKNOWN"
+        self.vendor_name = self.parser.get_manuf(mac).lower() or "UNKNOWN"
+        return self.vendor_name
 
     # Checks to see if vendor is in list of trusted vendors
     def check_vendor_trust(self, vendor: str) -> str:
@@ -33,12 +35,13 @@ class ScoreDevices:
             trust_score -= 20
         if mac not in all_scanned:
             trust_score -= 10
-        trust_score += self.get_vendor_score()
-        trust_score += self.get_connection_time_score()
+        trust_score += self.score_vendor_trust()
+        trust_score += self.score_connection_time()
+        trust_score += self.score_vendor_classifier()
         return trust_score
 
     # Retrieves the time of the connection and calculates score based on if it was during business hours
-    def get_connection_time_score(self):
+    def score_connection_time(self):
         now = datetime.now()
         work_start = now.replace(hour=8, minute=0, second=0, microsecond=0)
         work_end = now.replace(hour=19, minute=0, second=0, microsecond=0)
@@ -49,13 +52,22 @@ class ScoreDevices:
             return 0
 
     # Scores the vendor based on if it is trusted or not
-    def get_vendor_score(self):
+    def score_vendor_trust(self):
         if self.vendor_trust == "TRUSTED VENDOR":
             return 30
         elif self.vendor_trust == "UNTRUSTED VENDOR":
             return 20
         elif self.vendor_trust == "UNKNOWN":
             return 15
+        else:
+            return 0
+
+    # Scores vendor based on classifiers that may be untrustworthy or trustworthy
+    def score_vendor_classifier(self):
+        if "camera" in self.vendor_name:
+            return -15
+        elif "laptop" in self.vendor_name or "intel" in self.vendor_name:
+            return 10
         else:
             return 0
 
