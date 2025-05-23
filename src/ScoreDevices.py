@@ -1,26 +1,49 @@
 from manuf import manuf
+from datetime import datetime
+
 class ScoreDevices:
     def __init__(self):
-        self.trusted_vendors = [ # Some sample trusted mac addresses to check against
-            "clevo",  # Cisco
-            "dyson",  # Apple
-            "apple"   # TEST
+        self.trusted_vendors = [
+            "clevo",
+            "dyson",
+            "apple"
         ]
         self.parser = manuf.MacParser()
+        self.vendor_trust = ""
 
-    # Locates vendor through manuf mac parser
     def get_vendor(self, mac) -> str:
         return self.parser.get_manuf(mac) or "UNKNOWN"
 
-    # Gives score based on if vendor is trusted or unknown
-    def score_vendor(self, v) -> str:
-        vendor = v.strip().lower()
-        if vendor == "UNKNOWN":
-            return "UNKNOWN"
-        elif vendor in self.trusted_vendors:
-            return "TRUSTED VENDOR"
-        elif vendor not in self.trusted_vendors:
-            return "UNTRUSTED VENDOR"
+    def score_vendor(self, vendor: str) -> str:
+        normalized = vendor.strip().lower()
+        if normalized == "unknown":
+            self.vendor_trust = "UNKNOWN"
+        elif normalized in self.trusted_vendors:
+            self.vendor_trust = "TRUSTED VENDOR"
+        else:
+            self.vendor_trust = "UNTRUSTED VENDOR"
+        return self.vendor_trust
 
+    def get_trust_score(self, mac, all_scanned) -> int:
+        trust_score = 0
+        now = datetime.now()
+        work_start = now.replace(hour=8, minute=0, second=0, microsecond=0)
+        work_end = now.replace(hour=19, minute=0, second=0, microsecond=0)
 
+        if self.vendor_trust == "TRUSTED VENDOR":
+            trust_score += 30
+        elif self.vendor_trust == "UNTRUSTED VENDOR":
+            trust_score -= 20
+        elif self.vendor_trust == "UNKNOWN":
+            trust_score -= 15
 
+        if mac.lower() in ["00:00:00:00:00:00", "ff:ff:ff:ff:ff:ff"]:
+            trust_score -= 20
+
+        if mac not in all_scanned:
+            trust_score -= 10
+
+        if now < work_start or now > work_end:
+            trust_score -= 20
+
+        return trust_score
