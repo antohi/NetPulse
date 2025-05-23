@@ -29,12 +29,14 @@ class ScoreDevices:
         return self.vendor_trust
 
     # Creates a score based on a variety of factors
-    def get_trust_score(self, mac, all_scanned) -> int:
+    def get_trust_score(self, mac) -> int:
         trust_score = 0
         if mac.lower() in ["00:00:00:00:00:00", "ff:ff:ff:ff:ff:ff"]:
             trust_score -= 20
+        '''
         if mac not in all_scanned:
             trust_score -= 10
+        '''
         trust_score += self.score_vendor_trust()
         trust_score += self.score_connection_time()
         trust_score += self.score_vendor_classifier()
