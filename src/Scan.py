@@ -22,7 +22,7 @@ class Scan:
         result = srp(pckt, timeout=1, verbose=0)[0]
         for sent, received in result:
             vendor = self.sd.get_vendor(received.hwsrc)
-            vendor_trust = self.sd.score_vendor(vendor)
+            vendor_trust = self.sd.check_vendor_trust(vendor)
             trust_score = self.sd.get_trust_score(received.hwsrc, self.scanned)
 
 
