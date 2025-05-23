@@ -4,7 +4,7 @@ import socket
 
 from src.ScoreDevices import ScoreDevices
 from src.NetUtils import NetUtils
-
+from src.Device import Device
 
 class Scan:
     def __init__(self):
@@ -24,21 +24,21 @@ class Scan:
             vendor = self.sd.get_vendor(received.hwsrc)
             vendor_trust = self.sd.check_vendor_trust(vendor)
             trust_score = self.sd.get_trust_score(received.hwsrc, self.scanned)
+            dev = Device(received.psrc, received.hwsrc, vendor, vendor_trust, trust_score, datetime.now())
 
-
-            self.scanned[received.psrc] =  [received.hwsrc, vendor, vendor_trust, trust_score]
-            current_scanned[received.psrc] = [received.hwsrc, vendor, vendor_trust, trust_score]
+            self.scanned[received.psrc] = dev
+            current_scanned[received.psrc] = dev
         return current_scanned
 
     # Gets all results from all scans completed
     def get_all_results(self):
-        for ip, info in self.scanned.items():
-            print(f"{ip}: {info[0]}, VENDOR: {info[1]}, VT: {info[2]}, SCORE: {info[3]}")
+        for ip, dev in self.scanned.items():
+            print(f"{dev.ip}: {dev.mac}, VENDOR: {dev.vendor}, VT: {dev.vendor_trust}, SCORE: {dev.trust_score}")
 
     # Gets the results from only the current scan completed
     def get_current_results(self, current_scanned):
-        for ip, info in current_scanned.items():
-            print(f"{ip}: {info[0]}, VENDOR: {info[1]}, VT: {info[2]}, SCORE: {info[3]}")
+        for ip, dev in current_scanned.items():
+            print(f"{dev.ip}: {dev.mac}, VENDOR: {dev.vendor}, VT: {dev.vendor_trust}, SCORE: {dev.trust_score}")
 
 
 
