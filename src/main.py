@@ -1,8 +1,9 @@
 import Scan
 from src.NetUtils import NetUtils
 from src.ScoreDevices import ScoreDevices
+from src.LiveMonitor import LiveMonitor
 
 s = Scan.Scan()
-current_scan = s.scan()
-s.get_current_results(current_scan)
+lm = LiveMonitor(s)
+lm.start()
 

@@ -14,7 +14,7 @@ class ScoreDevices:
 
     # Collects vendor manufacturer info
     def get_vendor(self, mac) -> str:
-        self.vendor_name = self.parser.get_manuf(mac).lower() or "UNKNOWN"
+        self.vendor_name = self.parser.get_manuf(mac) or "UNKNOWN"
         return self.vendor_name
 
     # Checks to see if vendor is in list of trusted vendors
