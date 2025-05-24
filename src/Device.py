@@ -17,9 +17,9 @@ class Device:
             "vendor": self.vendor,
             "vendor_trust": self.vendor_trust,
             "trust_score": self.trust_score,
-            "time_detected": self.time_detected.strftime("%Y-%m-%d %H:%M:%S")
+            "time_detected": self.time_detected.strftime("%H:%M:%S")
         }
 
 
     def __repr__(self):
-        return f"{self.ip} | {self.mac} | {self.vendor} | {self.vendor_trust} | {self.trust_score}"
+        return f"TIME: {self.time_detected.strftime("%H:%M:%S")} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | VT: {self.vendor_trust} | TS: {self.trust_score}"
