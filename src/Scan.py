@@ -2,9 +2,9 @@ from scapy.all import *
 from scapy.layers.l2 import ARP, Ether, arping
 import socket
 
-from src.ScoreDevices import ScoreDevices
-from src.NetUtils import NetUtils
-from src.Device import Device
+from ScoreDevices import ScoreDevices
+from NetUtils import NetUtils
+from Device import Device
 
 class Scan:
     def __init__(self):

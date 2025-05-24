@@ -1,3 +1,4 @@
+import threading
 import time
 from datetime import datetime, timedelta
 
@@ -7,14 +8,18 @@ class LiveMonitor:
         self.interval = interval
         self.previous_scan = {}
         self.continue_monitoring = True
+        self.thread = None
 
     # Starts and initializes live monitoring
     def start(self):
+        self.continue_monitoring = True
+        self.thread = threading.Thread(target=self.monitor)
+        self.thread.start()
+
+    def monitor(self):
         while self.continue_monitoring:
             current_scan = self.scanner.scan()
-
             self.detect_changes(current_scan)
-
             self.previous_scan = current_scan
             time.sleep(self.interval)
 
@@ -34,3 +39,5 @@ class LiveMonitor:
 
     def stop_monitoring(self):
         self.continue_monitoring = False
+        if self.thread:
+            self.thread.join()
