@@ -2,8 +2,14 @@ from manuf import manuf
 from datetime import datetime
 
 class ScoreDevices:
-    def __init__(self, mac):
+    def __init__(self):
+        self.trusted_vendors = [ # Known trusted vendors to check vendor against
+            "clevo",
+            "dyson",
+            "apple"
+        ]
 
+        # Tables to check MAC information in order to create a score
         self.vendor_trust_table = {
             "TRUSTED VENDOR": 30,
             "UNTRUSTED VENDOR": -30,
@@ -28,7 +34,7 @@ class ScoreDevices:
             "on_hours": 10
         }
 
-        self.parser = manuf.MacParser()
+        self.parser = manuf.MacParser() # Manuf name
 
     # Collects vendor manufacturer info
     def get_vendor(self, mac) -> str:
@@ -37,16 +43,10 @@ class ScoreDevices:
 
     # Checks to see if vendor is in list of trusted vendors
     def check_vendor_trust(self, vendor: str) -> str:
-        trusted_vendors = [
-            "clevo",
-            "dyson",
-            "apple"
-        ]
-
         normalized = vendor.strip().lower()
         if normalized == "unknown":
             vendor_trust = "UNKNOWN"
-        elif normalized in trusted_vendors:
+        elif normalized in self.trusted_vendors:
             vendor_trust = "TRUSTED VENDOR"
         else:
             vendor_trust = "UNTRUSTED VENDOR"
@@ -99,5 +99,21 @@ class ScoreDevices:
             return "sketchy_mac"
         else:
             return "okay_mac"
+
+
+    def explain_score(self, mac):
+        vendor_name = self.get_vendor(mac)
+        ven_trust = self.check_vendor_trust(vendor_name)
+        vendor_type = self.check_vendor_classifier(vendor_name)
+        mac_type = self.check_mac_type(mac)
+        cx_time = self.check_connection_time()
+
+        return {
+            "VENDOR NAME": vendor_name,
+            "VENDOR TYPE": vendor_type,
+            "VENDOR TRUST": ven_trust,
+            "MAC TYPE": mac_type,
+            "CONNECTION TIME": cx_time,
+        }
 
 

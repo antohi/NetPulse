@@ -21,10 +21,10 @@ class Scan:
         pckt = self.ether / self.arp # Sets up packet to be sent out
         result = srp(pckt, timeout=1, verbose=0)[0]
         for sent, received in result:
-            vendor = self.sd.get_vendor(received.hwsrc)
-            vendor_trust = self.sd.check_vendor_trust(vendor)
-            trust_score = self.sd.get_trust_score(received.hwsrc)
-            dev = Device(received.psrc, received.hwsrc, vendor, vendor_trust, trust_score, datetime.now())
+            scr = self.sd.score_device(received.hwsrc)
+            info = self.sd.explain_score(received.hwsrc)
+            dev = Device(received.psrc, received.hwsrc, info.get("VENDOR NAME"), info.get("VENDOR TYPE"),
+                         info.get("VENDOR TRUST"), info.get("MAC TYPE"), scr, info.get("CONNECTION TIME"))
             current_scanned[received.psrc] = dev
         return current_scanned
 
