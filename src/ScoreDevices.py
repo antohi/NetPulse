@@ -8,18 +8,28 @@ class ScoreDevices:
             "dyson",
             "apple"
         ]
-        self.score_table = {
+        self.vendor_trust_table = {
             "TRUSTED VENDOR": 30,
             "UNTRUSTED VENDOR": -30,
             "UNKNOWN": -10,
+        }
+
+        self.vendor_type_table = {
             "camera": -20,
             "intel": 10,
-            "off_hours": -20,
-            "on_hours": 10,
+        }
+
+        self.mac_type_table = {
             "seen_before": 10,
             "sketchy_mac": -25
 
         }
+
+        self.time_table = {
+            "off_hours": -20,
+            "on_hours": 10,
+        }
+
         self.parser = manuf.MacParser()
         self.vendor_trust = ""
         self.vendor_name = ""
