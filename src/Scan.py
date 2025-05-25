@@ -23,8 +23,7 @@ class Scan:
         for sent, received in result:
             scr = self.sd.score_device(received.hwsrc)
             info = self.sd.explain_score(received.hwsrc)
-            dev = Device(received.psrc, received.hwsrc, info.get("VENDOR NAME"), info.get("VENDOR TYPE"),
-                         info.get("VENDOR TRUST"), info.get("MAC TYPE"), scr, info.get("CONNECTION TIME"))
+            dev = Device(received.psrc, received.hwsrc, info, scr, datetime.now())
             current_scanned[received.psrc] = dev
         return current_scanned
 
