@@ -1,32 +1,47 @@
-from textual import events
-from textual.app import App
+from textual.app import App, ComposeResult
+from textual.screen import Screen
+from textual.widgets import Placeholder
 
-class MyApp(App):
-    pass
 
-class EventApp(App):
+class Header(Placeholder):
+    DEFAULT_CSS = """
+    Header {
+        height: 3;
+        dock: top;
+    }
+    """
 
-    COLORS = [
-        "white",
-        "maroon",
-        "red",
-        "purple",
-        "fuchsia",
-        "olive",
-        "yellow",
-        "navy",
-        "teal",
-        "aqua",
-    ]
 
-    def on_mount(self) -> None:
-        self.screen.styles.background = "darkblue"
+class Footer(Placeholder):
+    DEFAULT_CSS = """
+    Footer {
+        height: 3;
+        dock: bottom;
+    }
+    """
 
-    def on_key(self, event: events.Key) -> None:
-        if event.key.isdecimal():
-            self.screen.styles.background = self.COLORS[int(event.key)]
+class ColumnsContainer(Placeholder):
+    DEFAULT_CSS = """
+    ColumnsContainer {
+        width: 1fr;
+        height: 1fr;
+        border: solid white;
+    }
+    """
+
+class ScanScreen(Screen):
+    def compose(self) -> ComposeResult:
+        yield Header(id="Header")
+        yield Footer(id="Footer")
+        yield ColumnsContainer(id="Columns")
+
+
+
+class LayoutApp(App):
+    def on_ready(self) -> None:
+        self.push_screen(ScanScreen())
+
 
 if __name__ == "__main__":
-    app = MyApp()
+    app = LayoutApp()
     app.run()
-
