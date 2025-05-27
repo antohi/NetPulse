@@ -1,15 +1,14 @@
 import Scan
-from NetUtils import NetUtils
-from ScoreDevices import ScoreDevices
 from LiveMonitor import LiveMonitor
+from colorama import Fore, Style
 
 s = Scan.Scan()
 lm = LiveMonitor(s)
 
 def main_menu():
-    print("=========")
-    print("NetPulse")
-    print("=========")
+    print(f"{Fore.LIGHTWHITE_EX}==========")
+    print(f"[{Style.RESET_ALL}{Fore.RED}NetPulse{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]")
+    print(f"=========={Style.RESET_ALL}")
 
     print("[MENU]")
     print("1) Live Monitor")

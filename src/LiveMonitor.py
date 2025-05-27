@@ -27,15 +27,15 @@ class LiveMonitor:
     def detect_changes(self, current_scan):
         for ip, device in current_scan.items():
             if ip not in self.previous_scan:
-                print(f"[!] [NEW DEVICE]: {device}")
+                print(f"[!] [NEW DEVICE]: {device}\n")
             else:
                 prev = self.previous_scan[ip]
                 if device.mac != prev.mac:
-                    print(f"[!!!] [MAC CHANGE] on {ip}: {prev.mac} → {device.mac}")
+                    print(f"[!!!] [MAC CHANGE] on {ip}: {prev.mac} → {device.mac}\n")
                 if device.trust_score != prev.trust_score:
-                    print(f"[!!!] [SCORE CHANGE] {ip} → {prev.trust_score} ➝ {device.trust_score}")
+                    print(f"[!!!] [SCORE CHANGE] {ip} → {prev.trust_score} ➝ {device.trust_score}\n")
                 else:
-                    print(f"[-] [No Change] {device}")
+                    print(f"[-] [No Change] {device}\n")
 
     def stop_monitoring(self):
         self.continue_monitoring = False
