@@ -5,26 +5,38 @@ from colorama import Fore, Style
 s = Scan.Scan()
 lm = LiveMonitor(s)
 
+# Place styled opening bracket (for UI headings)
+def psob():
+    return f"{Fore.LIGHTWHITE_EX}[{Style.RESET_ALL}"
+
+# Place styled closing bracket (for UI headings)
+def pscb():
+    return f"{Fore.LIGHTWHITE_EX}]{Style.RESET_ALL}"
+
+def style_heading(heading):
+    return f"{Fore.RED}{heading}{Style.RESET_ALL}"
+
+
 def main_menu():
     print(f"{Fore.LIGHTWHITE_EX}==========")
     print(f"[{Style.RESET_ALL}{Fore.RED}NetPulse{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]")
     print(f"=========={Style.RESET_ALL}")
 
-    print("[MENU]")
-    print("1) Live Monitor")
-    print("2) Exit")
+    print(f"\n{psob()}{style_heading("MENU")}{pscb()}")
+    print(f"{Fore.LIGHTWHITE_EX}1) Live Monitor")
+    print(f"2) Exit{Style.RESET_ALL}")
 
     return input("> ")
 
 def start_live_monitor():
-    print("===[Live Monitor]===")
-    print("Input 'x' at any time to return to main menu")
+    print(f"{Fore.LIGHTWHITE_EX}===[{Style.RESET_ALL}{Fore.BLUE}Live Monitor{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]==={Style.RESET_ALL}")
+    print(f"\n{Fore.LIGHTBLUE_EX}Input{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}'x'{Style.RESET_ALL}{Fore.LIGHTBLUE_EX} at any time to return to main menu{Style.RESET_ALL}\n")
     lm.start()
     while True:
         user_input = input()
         if user_input.lower() == 'x':
             lm.stop_monitoring()
-            print("[+] Stopped Live Monitor.")
+            print(f"{Fore.LIGHTWHITE_EX}[+] Stopped Live Monitor.{Style.RESET_ALL}")
             return False
 
 exit = False
