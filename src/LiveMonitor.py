@@ -1,6 +1,7 @@
 import threading
 import time
 from datetime import datetime, timedelta
+from colorama import Fore, Style
 
 class LiveMonitor:
     def __init__(self, scan_obj, interval=10):
@@ -28,13 +29,15 @@ class LiveMonitor:
         print("-"*120)
         for ip, device in current_scan.items():
             if ip not in self.previous_scan:
-                print(f"[!] [NEW DEVICE]: {device}")
+                print(f"{Fore.LIGHTWHITE_EX}[!] {Fore.RED}[NEW DEVICE]:{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device}{Style.RESET_ALL}")
             else:
                 prev = self.previous_scan[ip]
                 if device.mac != prev.mac:
-                    print(f"[!!!] [MAC CHANGE] on {ip}: {prev.mac} → {device.mac}")
-                if device.trust_score != prev.trust_score:
-                    print(f"[!!!] [SCORE CHANGE] {ip} → {prev.trust_score} ➝ {device.trust_score}")
+                    print(f"{Fore.RED}[!!!] [MAC CHANGE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} on {ip}: {prev.mac} → {device.mac}{Style.RESET_ALL}")
+                elif device.trust_score != prev.trust_score:
+                    print(f"{Fore.RED}[!!!] [SCORE CHANGE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {ip} → {prev.trust_score} ➝ {device.trust_score}{Style.RESET_ALL}")
+                elif device.trust_score < 0:
+                    print(f"{Fore.LIGHTWHITE_EX}[!] [NO CHANGE]{Style.RESET_ALL} {Fore.RED}[LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
                 else:
                     print(f"[-] [No Change] {device}")
             print("-" * 120)
