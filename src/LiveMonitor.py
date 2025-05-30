@@ -28,8 +28,10 @@ class LiveMonitor:
     def detect_changes(self, current_scan):
         print("-"*120)
         for ip, device in current_scan.items():
-            if ip not in self.previous_scan:
-                print(f"{Fore.LIGHTWHITE_EX}[!] {Fore.RED}[NEW DEVICE]:{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device}{Style.RESET_ALL}")
+            if ip not in self.previous_scan and device.trust_score < 0:
+                print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
+            elif ip not in self.previous_scan:
+                print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device}{Style.RESET_ALL}")
             else:
                 prev = self.previous_scan[ip]
                 if device.mac != prev.mac:
@@ -37,7 +39,7 @@ class LiveMonitor:
                 elif device.trust_score != prev.trust_score:
                     print(f"{Fore.RED}[!!!] [SCORE CHANGE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {ip} → {prev.trust_score} ➝ {device.trust_score}{Style.RESET_ALL}")
                 elif device.trust_score < 0:
-                    print(f"{Fore.LIGHTWHITE_EX}[!] [NO CHANGE]{Style.RESET_ALL} {Fore.RED}[LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
+                    print(f"{Fore.LIGHTWHITE_EX}[-] [NO CHANGE]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
                 else:
                     print(f"[-] [No Change] {device}")
             print("-" * 120)

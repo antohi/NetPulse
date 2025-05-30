@@ -13,18 +13,18 @@ class ScoreDevices:
         self.vendor_trust_table = {
             "TRUSTED VENDOR": 30,
             "UNTRUSTED VENDOR": -30,
-            "UNKNOWN": -10
+            "UNKNOWN": 0
         }
 
         self.vendor_type_table = {
             "camera": -20,
-            "intel": 10,
-            "laptop": 10,
+            "intel": 20,
+            "laptop": 20,
             "": 0
         }
 
         self.mac_type_table = {
-            "okay_mac": 10,
+            "okay_mac": 20,
             "sketchy_mac": -25
 
         }
