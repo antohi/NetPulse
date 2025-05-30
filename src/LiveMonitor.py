@@ -2,6 +2,7 @@ import threading
 import time
 from datetime import datetime, timedelta
 from colorama import Fore, Style
+import csv
 
 class LiveMonitor:
     def __init__(self, scan_obj, interval=10):
@@ -48,3 +49,17 @@ class LiveMonitor:
         self.continue_monitoring = False
         if self.thread:
             self.thread.join()
+
+    def log_results(self):
+        try:
+            csv_path = "../logs/net_log.csv"
+            with open(csv_path, "w", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(["Time","IP", "MAC", "Device", "Score"])
+                for rec in self.previous_scan.values():
+                    writer.writerow([rec.time_detected, rec.ip, rec.mac, rec.vendor, rec.trust_score])
+
+        except Exception as e:
+            return f"{Fore.LIGHTRED_EX} unable to write CSV network log: " + str(e)
+
+
