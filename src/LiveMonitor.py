@@ -1,6 +1,5 @@
 import threading
 import time
-from datetime import datetime, timedelta
 from colorama import Fore, Style
 import csv
 
