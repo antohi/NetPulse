@@ -11,6 +11,7 @@ class LiveMonitor:
         self.previous_scan = {}
         self.continue_monitoring = True
         self.thread = None
+        self.scan_history = []
 
     # Starts and initializes live monitoring
     def start(self):
@@ -22,6 +23,7 @@ class LiveMonitor:
         while self.continue_monitoring:
             current_scan = self.scanner.scan()
             self.detect_changes(current_scan)
+            self.scan_history.append(current_scan)
             self.previous_scan = current_scan
             time.sleep(self.interval)
 
@@ -52,14 +54,15 @@ class LiveMonitor:
 
     def log_results(self):
         try:
-            csv_path = "../logs/net_log.csv"
+            csv_path = "logs/net_log.csv"
             with open(csv_path, "w", newline="") as f:
                 writer = csv.writer(f)
-                writer.writerow(["Time","IP", "MAC", "Device", "Score"])
-                for rec in self.previous_scan.values():
-                    writer.writerow([rec.time_detected, rec.ip, rec.mac, rec.vendor, rec.trust_score])
-
+                writer.writerow(["Time", "IP", "MAC", "Device", "Score"])
+                for scan in self.scan_history:
+                    for rec in scan.values():
+                        writer.writerow([rec.time_detected, rec.ip, rec.mac, rec.vendor, rec.trust_score])
         except Exception as e:
-            return f"{Fore.LIGHTRED_EX} unable to write CSV network log: " + str(e)
+            return f"{Fore.LIGHTRED_EX} unable to write CSV network log: {e}"
+
 
 
