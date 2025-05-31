@@ -24,7 +24,8 @@ def main_menu():
 
     print(f"\n{psob()}{style_heading("MENU")}{pscb()}")
     print(f"{Fore.LIGHTWHITE_EX}1) Live Monitor")
-    print(f"2) Exit{Style.RESET_ALL}")
+    print(f"2) Scan History")
+    print(f"3) Exit{Style.RESET_ALL}")
 
     return input("> ")
 
@@ -32,7 +33,6 @@ def start_live_monitor():
     print(f"\n{Fore.LIGHTWHITE_EX}===[{Style.RESET_ALL}{Fore.BLUE}Live Monitor{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]==={Style.RESET_ALL}")
     print(f"{psob()}{Fore.LIGHTBLUE_EX}Input{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}'x'{Style.RESET_ALL}{Fore.LIGHTBLUE_EX} at any time to return to main menu{Style.RESET_ALL}{pscb()}"
           f"\n{psob()}{Fore.LIGHTBLUE_EX}Input {Fore.LIGHTWHITE_EX}'s'{Style.RESET_ALL}{Fore.LIGHTBLUE_EX} to begin scan{Style.RESET_ALL}{pscb()}")
-
     while True:
         user_input = input("> ")
         if user_input == "s":
@@ -47,6 +47,21 @@ def start_live_monitor():
         else:
             print(f"\n{Fore.LIGHTRED_EX}[ERROR] Invalid input!{Style.RESET_ALL}")
 
+
+def scan_history_menu():
+    print(f"\n{Fore.LIGHTWHITE_EX}===[{Style.RESET_ALL}{Fore.BLUE}Scan History{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]==={Style.RESET_ALL}")
+    print(f"\n{psob()}{style_heading("MENU")}{pscb()}")
+    print(f"{Fore.LIGHTWHITE_EX}1) Show Previous 20 Scans")
+    print(f"2) Show All Previous Scans {Style.RESET_ALL}")
+
+    return input("> ")
+
+def show_previous_20_scans():
+    for scan in lm.scan_history:
+        print(scan)
+
+
+
 exit = False
 while exit == False:
     menu_choice = main_menu()
@@ -54,10 +69,16 @@ while exit == False:
         if not start_live_monitor():
             continue
     elif menu_choice == "2":
+        submenu_choice = scan_history_menu()
+        if submenu_choice == "1":
+            show_previous_20_scans()
+    elif menu_choice == "3":
         exit = True
         break
     else:
         "[ERROR] Invalid Menu Choice"
+
+
 
 
 

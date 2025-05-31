@@ -44,7 +44,7 @@ class LiveMonitor:
                 elif device.trust_score < 0:
                     print(f"{Fore.LIGHTWHITE_EX}[-] [NO CHANGE]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
                 else:
-                    print(f"[-] [No Change] {device}")
+                    print(f"{Fore.LIGHTWHITE_EX}[-] [No Change] {device}{Style.RESET_ALL}")
             print("-" * 120)
 
     def stop_monitoring(self):
