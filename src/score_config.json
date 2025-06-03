@@ -1,0 +1,21 @@
+{
+  "vendor_trust_table": {
+    "TRUSTED VENDOR": 30,
+    "UNTRUSTED VENDOR": -30,
+    "UNKNOWN": 0
+  },
+  "vendor_type_table": {
+    "camera": -20,
+    "intel": 20,
+    "laptop": 20,
+    "": 0
+  },
+  "mac_type_table": {
+    "okay_mac": 20,
+    "sketchy_mac": -25
+  },
+  "time_table": {
+    "off_hours": -20,
+    "on_hours": 10
+  }
+}

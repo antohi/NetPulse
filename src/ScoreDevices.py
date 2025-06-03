@@ -1,40 +1,26 @@
+import json
+
 from manuf import manuf
 from datetime import datetime
 
 class ScoreDevices:
     def __init__(self):
-        self.trusted_vendors = [ # Known trusted vendors to check vendor against
+        self.trusted_vendors = [
             "clevo",
             "dyson",
             "apple"
         ]
 
-        # Tables to check MAC information in order to create a score
-        self.vendor_trust_table = {
-            "TRUSTED VENDOR": 30,
-            "UNTRUSTED VENDOR": -30,
-            "UNKNOWN": 0
-        }
+        # Load scoring config from external JSON file
+        with open("src/score_config.json", "r") as f:
+            config = json.load(f)
 
-        self.vendor_type_table = {
-            "camera": -20,
-            "intel": 20,
-            "laptop": 20,
-            "": 0
-        }
+        self.vendor_trust_table = config.get("vendor_trust_table", {})
+        self.vendor_type_table = config.get("vendor_type_table", {})
+        self.mac_type_table = config.get("mac_type_table", {})
+        self.time_table = config.get("time_table", {})
 
-        self.mac_type_table = {
-            "okay_mac": 20,
-            "sketchy_mac": -25
-
-        }
-
-        self.time_table = {
-            "off_hours": -20,
-            "on_hours": 10
-        }
-
-        self.parser = manuf.MacParser() # Manuf name
+        self.parser = manuf.MacParser()
 
     # Collects vendor manufacturer info
     def get_vendor(self, mac) -> str:
