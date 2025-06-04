@@ -5,20 +5,22 @@ from datetime import datetime
 
 class ScoreDevices:
     def __init__(self):
-        self.trusted_vendors = [
-            "clevo",
-            "dyson",
-            "apple"
-        ]
+        with open("src/trusted_vendors_config.json", "r") as f:
+            trusted_vendors_config = json.load(f)
+
+        self.trusted_vendors = {
+            vendor.lower(): trust_level
+            for vendor, trust_level in trusted_vendors_config.get("vendors_table", {}).items()
+        }
 
         # Load scoring config from external JSON file
         with open("src/score_config.json", "r") as f:
-            config = json.load(f)
+            score_config = json.load(f)
 
-        self.vendor_trust_table = config.get("vendor_trust_table", {})
-        self.vendor_type_table = config.get("vendor_type_table", {})
-        self.mac_type_table = config.get("mac_type_table", {})
-        self.time_table = config.get("time_table", {})
+        self.vendor_trust_table = score_config.get("vendor_trust_table", {})
+        self.vendor_type_table = score_config.get("vendor_type_table", {})
+        self.mac_type_table = score_config.get("mac_type_table", {})
+        self.time_table = score_config.get("time_table", {})
 
         self.parser = manuf.MacParser()
 
@@ -31,12 +33,8 @@ class ScoreDevices:
     def check_vendor_trust(self, vendor: str) -> str:
         normalized = vendor.strip().lower()
         if normalized == "unknown":
-            vendor_trust = "UNKNOWN"
-        elif normalized in self.trusted_vendors:
-            vendor_trust = "TRUSTED VENDOR"
-        else:
-            vendor_trust = "UNTRUSTED VENDOR"
-        return vendor_trust
+            return "UNKNOWN"
+        return self.trusted_vendors.get(normalized, "UNTRUSTED VENDOR")
 
     # Creates a score based on a variety of factors
     def score_device(self, mac) -> int:
@@ -85,7 +83,6 @@ class ScoreDevices:
             return "sketchy_mac"
         else:
             return "okay_mac"
-
 
     def explain_score(self, mac):
         vendor_name = self.get_vendor(mac)
