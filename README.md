@@ -26,13 +26,13 @@ Think of it as a **mini SIEM for your LAN**, it collects logs, applies scoring l
 
 ---
 
-### Screenshots
-## Main Menu
+## Screenshots
+### Main Menu
 ![Menu](screenshots/MainMenu.png)
 ![Menu2](screenshots/lm_menu.png)
-## Live Scan
+### Live Scan
 ![Scans](screenshots/lm_scans.png)
-## Scan History
+### Scan History
 ![History](screenshots/sh_menu.png)
 ![History1](screenshots/sh_res.png)
 
