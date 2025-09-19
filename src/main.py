@@ -6,7 +6,7 @@ from VirusTotalAPI import VirusTotalAPI
 
 s = Scan.Scan()
 lm = LiveMonitor(s)
-vt = VirusTotalAPI
+vt = VirusTotalAPI()
 
 # Place styled opening bracket (for UI headings)
 def psob():
