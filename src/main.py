@@ -2,8 +2,11 @@ import Scan
 from LiveMonitor import LiveMonitor
 from colorama import Fore, Style
 
+from VirusTotalAPI import VirusTotalAPI
+
 s = Scan.Scan()
 lm = LiveMonitor(s)
+vt = VirusTotalAPI
 
 # Place styled opening bracket (for UI headings)
 def psob():
@@ -26,7 +29,8 @@ def main_menu():
     print(f"\n{psob()}{style_heading('MENU')}{pscb()}")
     print(f"{Fore.LIGHTWHITE_EX}1) Live Monitor")
     print(f"2) Scan History")
-    print(f"3) Exit{Style.RESET_ALL}")
+    print(f"3) Exit")
+    print(f"4) VirusTotal Check{Style.RESET_ALL}")
 
     return input("> ")
 
@@ -82,6 +86,10 @@ def show_all_scans():
         print(f"\n{Fore.CYAN}-- Scan #{i} --{Style.RESET_ALL}")
         for ip, dev in scan.items():
             print(dev)
+
+def virustotal_check():
+    print(vt.get_url())
+
 # UI
 exit = False
 while exit == False:
@@ -100,6 +108,8 @@ while exit == False:
     elif menu_choice == "3":
         exit = True
         break
+    elif menu_choice == "4":
+        virustotal_check()
     else:
         "[ERROR] Invalid Menu Choice"
 
