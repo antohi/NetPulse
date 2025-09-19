@@ -23,7 +23,7 @@ def main_menu():
     print(f"[{Style.RESET_ALL}{Fore.RED}NetPulse{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]")
     print(f"=========={Style.RESET_ALL}")
 
-    print(f"\n{psob()}{style_heading("MENU")}{pscb()}")
+    print(f"\n{psob()}{style_heading('MENU')}{pscb()}")
     print(f"{Fore.LIGHTWHITE_EX}1) Live Monitor")
     print(f"2) Scan History")
     print(f"3) Exit{Style.RESET_ALL}")

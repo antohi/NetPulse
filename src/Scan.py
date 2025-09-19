@@ -1,7 +1,5 @@
 from scapy.all import *
-from scapy.layers.l2 import ARP, Ether, arping
-import socket
-
+from scapy.layers.l2 import ARP, Ether
 from ScoreDevices import ScoreDevices
 from NetUtils import NetUtils
 from Device import Device
@@ -26,9 +24,6 @@ class Scan:
             dev = Device(received.psrc, received.hwsrc, info, scr, datetime.now())
             current_scanned[received.psrc] = dev
         return current_scanned
-
-
-
 
 
 
