@@ -88,7 +88,8 @@ def show_all_scans():
             print(dev)
 
 def virustotal_check():
-    print(vt.get_url())
+    safety_check = vt.virus_total_scan("1.1.1.1")
+    print(vt.get_virus_total_safety_level(safety_check))
 
 # UI
 exit = False

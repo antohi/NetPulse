@@ -9,9 +9,39 @@ class VirusTotalAPI:
             "accept": "application/json",
             "x-apikey":os.getenv("API_KEY")
         }
-        self.ip = "1.1.1.1"
 
-    def get_url(self):
-        url = f"https://www.virustotal.com/api/v3/ip_addresses/{self.ip}"
+    # Sends API request for specified IP
+    def virus_total_scan(self, ip):
+        url = f"https://www.virustotal.com/api/v3/ip_addresses/{ip}"
         response = requests.get(url, headers=self.headers)
-        return response.text
+        return response.json()
+
+    # Determines safety level of IP address based on parsed API response
+    def get_virus_total_safety_level(self, response: dict) -> str:
+        a = response.get("data", {}).get("attributes", {})
+        stats = a.get("last_analysis_stats", {})
+        votes = a.get("total_votes", {})
+        tags = set(a.get("tags", []))
+        rep = a.get("reputation", 0)
+
+        malicious = int(stats.get("malicious", 0))
+        suspicious = int(stats.get("suspicious", 0))
+        positives = malicious + suspicious
+        harmless = int(stats.get("harmless", 0))
+        vote_mal = int(votes.get("malicious", 0))
+        vote_har = int(votes.get("harmless", 0))
+
+        # Rules to determine safety based on parsed API response
+        if positives >= 3 or (
+                positives >= 1 and any(t.startswith("suspicious") or t in {"phishing", "malware"} for t in tags)):
+            return "UNSAFE"
+        elif vote_mal >= 10 and vote_mal > vote_har + 5:
+            return "UNSAFE"
+        elif rep <= -10:
+            return "UNSAFE"
+        else:
+            return "SAFE"
+
+
+
+
