@@ -1,10 +1,13 @@
+import os
 import requests
+from dotenv import load_dotenv
 
 class VirusTotalAPI:
     def __init__(self):
+        load_dotenv()
         self.headers = {
             "accept": "application/json",
-            "x-apikey": "APIKEY"
+            "x-apikey":os.getenv("API_KEY")
         }
         self.ip = "1.1.1.1"
 
