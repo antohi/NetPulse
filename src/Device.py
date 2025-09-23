@@ -1,4 +1,5 @@
 from datetime import datetime
+from VirusTotalAPI import VirusTotalAPI
 
 class Device:
     def __init__(self, ip, mac, info, score, time_detected):
@@ -11,6 +12,9 @@ class Device:
         self.trust_score = score
         self.time_detected = time_detected
 
+        vt = VirusTotalAPI()
+        self.vt_score = vt.virus_total_scan(self.ip)
+
         self.info = info
 
 
@@ -18,4 +22,4 @@ class Device:
         return self.info
 
     def __repr__(self):
-        return f"TIME: {self.time_detected.strftime('%H:%M:%S')} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | TS: {self.trust_score}"
+        return f"TIME: {self.time_detected.strftime('%H:%M:%S')} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | TS: {self.trust_score} | VT: {self.vt_score}"

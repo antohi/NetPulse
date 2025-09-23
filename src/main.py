@@ -30,8 +30,6 @@ def main_menu():
     print(f"{Fore.LIGHTWHITE_EX}1) Live Monitor")
     print(f"2) Scan History")
     print(f"3) Exit")
-    print(f"4) VirusTotal Check{Style.RESET_ALL}")
-
     return input("> ")
 
 # Starts live monitoring
@@ -86,10 +84,6 @@ def show_all_scans():
         print(f"\n{Fore.CYAN}-- Scan #{i} --{Style.RESET_ALL}")
         for ip, dev in scan.items():
             print(dev)
-
-def virustotal_check():
-    safety_check = vt.virus_total_scan("1.1.1.1")
-    print(vt.get_virus_total_safety_level(safety_check))
 
 # UI
 exit = False
