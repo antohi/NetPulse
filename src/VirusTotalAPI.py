@@ -10,12 +10,6 @@ class VirusTotalAPI:
             "x-apikey":os.getenv("API_KEY")
         }
 
-    # Sends API request for specified IP
-    def virus_total_scan(self, ip):
-        url = f"https://www.virustotal.com/api/v3/ip_addresses/{ip}"
-        response = requests.get(url, headers=self.headers)
-        return response.json()
-
     # Determines safety level of IP address based on parsed API response
     def get_virus_total_safety_level(self, response: dict) -> str:
         a = response.get("data", {}).get("attributes", {})
@@ -41,6 +35,13 @@ class VirusTotalAPI:
             return "UNSAFE"
         else:
             return "SAFE"
+
+
+    # Sends API request for specified IP
+    def virus_total_scan(self, ip):
+        url = f"https://www.virustotal.com/api/v3/ip_addresses/{ip}"
+        response = requests.get(url, headers=self.headers)
+        return self.get_virus_total_safety_level(response.json())
 
 
 
