@@ -26,16 +26,23 @@ class VirusTotalAPI:
         vote_har = int(votes.get("harmless", 0))
 
         # Rules to determine safety based on parsed API response
-        if positives >= 3 or (
-                positives >= 1 and any(t.startswith("suspicious") or t in {"phishing", "malware"} for t in tags)):
-            return "UNSAFE"
-        elif vote_mal >= 10 and vote_mal > vote_har + 5:
-            return "UNSAFE"
-        elif rep <= -10:
-            return "UNSAFE"
-        else:
-            return "SAFE"
 
+        # if engines flag it, trust that
+        if positives > 0:
+            return "UNSAFE"
+
+        # otherwise, consider community votes
+        vote_mal = int(votes.get("malicious", 0))
+        vote_har = int(votes.get("harmless", 0))
+
+        if vote_mal > 20 and vote_mal > vote_har + 10:
+            return "UNSAFE"
+
+        if rep < -50:  # only if reputation is *heavily* negative
+            return "UNSAFE"
+
+        # Default: clean
+        return "SAFE"
 
     # Sends API request for specified IP
     def virus_total_scan(self, ip):
