@@ -7,7 +7,7 @@ class VirusTotalAPI:
         load_dotenv()
         self.headers = {
             "accept": "application/json",
-            "x-apikey":"dfanf"
+            "x-apikey":os.getenv("API_KEY")
         }
 
     # Determines safety level of IP address based on parsed API response
