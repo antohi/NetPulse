@@ -3,12 +3,10 @@ from scapy.layers.l2 import ARP, Ether
 from ScoreDevices import ScoreDevices
 from NetUtils import NetUtils
 from Device import Device
-from VirusTotalAPI import VirusTotalAPI
 
 class Scan:
     def __init__(self):
         nu = NetUtils()
-        vapi= VirusTotalAPI()
         self.target_ip = nu.get_local_subnet()
         self.arp = ARP(pdst=self.target_ip)
         self.ether = Ether(dst="ff:ff:ff:ff:ff:ff")

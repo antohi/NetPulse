@@ -103,8 +103,6 @@ while exit == False:
     elif menu_choice == "3":
         exit = True
         break
-    elif menu_choice == "4":
-        virustotal_check()
     else:
         "[ERROR] Invalid Menu Choice"
 
