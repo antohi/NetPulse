@@ -36,6 +36,8 @@ Think of it as a **mini SIEM for your LAN**, it collects logs, applies scoring l
 ### Scan History
 ![History](screenshots/sh_menu.png)
 ![History1](screenshots/sh_res.png)
+### (NEW) Virust Total Public IP Scoring
+![VT](screenshots/vt_public_ip_score.png)
 
 
 
