@@ -1,6 +1,7 @@
 import Scan
 from LiveMonitor import LiveMonitor
 from colorama import Fore, Style
+import requests
 
 from VirusTotalAPI import VirusTotalAPI
 
@@ -20,6 +21,15 @@ def pscb():
 def style_heading(heading):
     return f"{Fore.RED}{heading}{Style.RESET_ALL}"
 
+# Public IP scoring w/ VT API
+def public_ip_score():
+    try:
+        public_ip = requests.get("https://api.ipify.org").text
+        rep = vt.virus_total_scan(public_ip)
+        print(f"\nPublic Network IP: {Fore.CYAN}{public_ip}{Style.RESET_ALL} | VirusTotal Score: {Fore.GREEN if 'SAFE' in rep else Fore.RED}{rep}{Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{Fore.YELLOW}[!] Could not fetch public IP: {e}{Style.RESET_ALL}")
+
 # Main menu of program
 def main_menu():
     print(f"\n{Fore.LIGHTWHITE_EX}==========")
@@ -35,7 +45,8 @@ def main_menu():
 # Starts live monitoring
 def start_live_monitor():
     print(f"\n{Fore.LIGHTWHITE_EX}===[{Style.RESET_ALL}{Fore.BLUE}Live Monitor{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]==={Style.RESET_ALL}")
-    print(f"{psob()}{Fore.LIGHTBLUE_EX}Input{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}'x'{Style.RESET_ALL}{Fore.LIGHTBLUE_EX} at any time to return to main menu{Style.RESET_ALL}{pscb()}"
+    public_ip_score()
+    print(f"\n{psob()}{Fore.LIGHTBLUE_EX}Input{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}'x'{Style.RESET_ALL}{Fore.LIGHTBLUE_EX} at any time to return to main menu{Style.RESET_ALL}{pscb()}"
           f"\n{psob()}{Fore.LIGHTBLUE_EX}Input {Fore.LIGHTWHITE_EX}'s'{Style.RESET_ALL}{Fore.LIGHTBLUE_EX} to begin scan{Style.RESET_ALL}{pscb()}")
     while True:
         user_input = input("> ")
