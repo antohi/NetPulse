@@ -1,5 +1,5 @@
 # NetPulse  
-*A Python-based network monitoring and anomaly detection tool with trust scoring.*  
+*A Python-based network monitoring and anomaly detection tool with trust scoring and VirusTotal API implentation*
 
 ---
 
@@ -18,7 +18,8 @@ Think of it as a **mini SIEM for your LAN**, it collects logs, applies scoring l
   - Device type classification (e.g., camera, laptop, Intel chipsets)  
   - MAC address validity (spoofed vs. legitimate)  
   - Connection time (business hours vs. off-hours)  
-- **Configurable Policies** – External JSON files define scoring rules and trusted vendors for easy customization.  
+- **Configurable Policies** – External JSON files define scoring rules and trusted vendors for easy customization.
+- **VirusTotal API Score** - VirustTotal API custom scoring if provided API key 
 - **Color-Coded Alerts** – Terminal output highlights anomalies and low-trust devices for quick triage.  
 - **Scan History** – Maintains a full history of previous scans for review.  
 - **CSV Logging** – Exports scan results and trust scores for audits or further analysis.  
