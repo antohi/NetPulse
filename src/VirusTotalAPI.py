@@ -1,3 +1,4 @@
+import ipaddress
 import os
 import requests
 from dotenv import load_dotenv
@@ -37,9 +38,13 @@ class VirusTotalAPI:
             return "N/A"
 
     def virus_total_scan(self, ip: str) -> str:
+
         # Case 1: No API key provided
         if not self.api_key:
             return "N/A"
+
+        if ipaddress.ip_address(ip).is_private:
+            return "N/A (private IP)"
 
         url = f"https://www.virustotal.com/api/v3/ip_addresses/{ip}"
         try:
