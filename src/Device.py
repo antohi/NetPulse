@@ -2,7 +2,7 @@ from datetime import datetime
 from VirusTotalAPI import VirusTotalAPI
 
 class Device:
-    def __init__(self, ip, mac, info, score, time_detected):
+    def __init__(self, ip, mac, info, score, time_detected, device_trust):
         self.ip = ip
         self.mac = mac
         self.vendor = info.get("VENDOR NAME")
@@ -11,6 +11,7 @@ class Device:
         self.mac_type = info.get("MAC TYPE")
         self.trust_score = score
         self.time_detected = time_detected
+        self.device_trust = device_trust
 
         vt = VirusTotalAPI()
         self.vt_score = vt.virus_total_scan(self.ip)
@@ -22,4 +23,4 @@ class Device:
         return self.info
 
     def __repr__(self):
-        return f"TIME: {self.time_detected.strftime('%H:%M:%S')} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | TS: {self.trust_score} | VT: {self.vt_score}"
+        return f"TIME: {self.time_detected.strftime('%H:%M:%S')} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | TS: {self.trust_score} | TRUST: {self.device_trust}"
