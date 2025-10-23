@@ -5,12 +5,20 @@ from datetime import datetime
 
 class ScoreDevices:
     def __init__(self):
+        # Loads trusted vendors list
         with open("src/trusted_vendors_config.json", "r") as f:
             trusted_vendors_config = json.load(f)
 
         self.trusted_vendors = {
             vendor.lower(): trust_level
             for vendor, trust_level in trusted_vendors_config.get("vendors_table", {}).items()
+        }
+
+        with open("src/trusted_devices.json", "r") as f:
+            trusted_devices = json.load(f)
+        self.trusted_devices = {
+            device.lower(): name
+            for device, name in trusted_devices.get("trusted_devices", {}).items()
         }
 
         # Load scoring config from external JSON file
@@ -53,6 +61,11 @@ class ScoreDevices:
         cx_time = self.check_connection_time()
         score += self.time_table.get(cx_time, 0)
 
+        if self.check_device_trust(mac) == "trusted_device":
+            score += 10000
+        else:
+            score += 0
+
         return score
 
     # Retrieves the time of the connection and calculates score based on if it was during business hours
@@ -83,6 +96,12 @@ class ScoreDevices:
             return "sketchy_mac"
         else:
             return "okay_mac"
+
+    def check_device_trust(self, mac):
+        if mac.lower() in self.trusted_devices:
+            return "trusted_device"
+        else:
+            return "unknown"
 
     def explain_score(self, mac):
         vendor_name = self.get_vendor(mac)
