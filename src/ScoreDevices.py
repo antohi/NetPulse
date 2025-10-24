@@ -9,13 +9,15 @@ class ScoreDevices:
         with open("src/trusted_vendors_config.json", "r") as f:
             trusted_vendors_config = json.load(f)
 
-        self.trusted_vendors = {
+        self.trusted_vendors = { # Loads vendor reputation data
             vendor.lower(): trust_level
             for vendor, trust_level in trusted_vendors_config.get("vendors_table", {}).items()
         }
 
+        # Loads configurable known devices
         with open("src/known_devices_config.json", "r") as f:
             known_devices = json.load(f)
+
         self.known_devices = {
             device.lower(): name
             for device, name in known_devices.get("known_devices", {}).items()
@@ -31,6 +33,7 @@ class ScoreDevices:
         self.time_table = score_config.get("time_table", {})
         self.known_device_table = score_config.get("known_device_table", {})
 
+        # Mac to vendor parser using OUI database
         self.parser = manuf.MacParser()
 
     # Collects vendor manufacturer info
@@ -62,13 +65,12 @@ class ScoreDevices:
         cx_time = self.check_connection_time()
         score += self.time_table.get(cx_time, 0)
 
-        known_device, device_name = self.check_known_device(mac)
-        score += self.known_device_table.get(known_device, 0)
+        score += self.known_device_table.get(mac, 0)
 
         return score
 
     # Retrieves the time of the connection and calculates score based on if it was during business hours
-    def check_connection_time(self):
+    def check_connection_time(self) -> str:
         now = datetime.now()
         work_start = now.replace(hour=8, minute=0, second=0, microsecond=0)
         work_end = now.replace(hour=19, minute=0, second=0, microsecond=0)
@@ -79,7 +81,7 @@ class ScoreDevices:
             return "on_hours"
 
     # Scores vendor based on classifiers that may be untrustworthy or trustworthy
-    def check_vendor_classifier(self, vendor_name):
+    def check_vendor_classifier(self, vendor_name) -> str:
         if "camera" in vendor_name:
             return "camera"
         elif "laptop" in vendor_name:
@@ -90,25 +92,28 @@ class ScoreDevices:
             return ""
 
     # Checks for mac spoofing
-    def check_mac_type(self, mac):
+    def check_mac_type(self, mac) -> str:
         if mac.lower() in ["00:00:00:00:00:00", "ff:ff:ff:ff:ff:ff"] or int(mac.split(':')[0], 16) & 2:
             return "sketchy_mac"
         else:
             return "okay_mac"
 
-    def check_known_device(self, mac):
+    # Checks if device is known and returns name
+    def check_known_device_name(self, mac):
         if mac.lower() in self.known_devices:
-            return "Y", self.known_devices[mac.lower()] # Y = KNOWN DEVICE
+            return self.known_devices[mac.lower()]
         else:
-            return "N", None # N = UNKNOWN DEVICE
+            return None
 
+    # Detailed score overview
     def explain_score(self, mac):
         vendor_name = self.get_vendor(mac)
         ven_trust = self.check_vendor_trust(vendor_name)
         vendor_type = self.check_vendor_classifier(vendor_name)
         mac_type = self.check_mac_type(mac)
         cx_time = self.check_connection_time()
-        known_device, device_name = self.check_known_device(mac)
+        known_device = "Y" if self.check_known_device_name(mac) else "N" # If None value is not returned, known_device = y/yes
+        device_name = self.check_known_device_name(mac)
 
         return {
             "VENDOR NAME": vendor_name,
