@@ -11,7 +11,7 @@
     "": 0
   },
   "mac_type_table": {
-    "okay_mac": 20,
+    "okay_mac": "21",
     "sketchy_mac": -25
   },
   "time_table": {

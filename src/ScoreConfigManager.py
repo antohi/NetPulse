@@ -15,4 +15,3 @@ class ScoreConfigManager:
     def save_config(self, config, data):
         with open(config, "w") as f:
             json.dump(data, f, indent=2)
-        print("[SUCCESS] Updated scoring configuration.")

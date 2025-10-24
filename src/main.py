@@ -116,6 +116,12 @@ def config_settings(config):
         for k, v in table.items():
             print(f"  {Fore.LIGHTWHITE_EX}{k}: {v}{Style.RESET_ALL}")
 
+# Submenu options for Score Configurations settings
+def score_config_options():
+    print("\n1) Edit Configuration")
+    print("2) Exit")
+    return input("> ")
+
 # Edits score config and saves JSON
 def edit_score_config(score_config):
     category_selection = input("Select Category: ").lower().strip()
@@ -123,17 +129,30 @@ def edit_score_config(score_config):
     value = input("New score value: ").lower().strip()
     score_config[category_selection][config_selection] = value
     sc.save_config(sc.score_config_path, score_config)
+    print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Score Configuration has been updated{Style.RESET_ALL}")
 
+# Submenu options for Known Devices Configurations settings
+def known_dev_config_options():
+    print("\n1) Add Known Device")
+    print("2) Remove Known Device ")
+    print("3) Exit")
+    return input("> ")
+
+# Prompts user for new known device and adds to JSON
 def add_known_dev(known_dev_config):
     new_device = input("Known Device Mac Address: ").lower().strip()
     value = input("Known Device Name (ex. Bob's Macbook): ")
     known_dev_config["known_devices"][new_device] = value
     sc.save_config(sc.known_devices_config, known_dev_config)
+    print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Known Devices Configuration has been updated{Style.RESET_ALL}")
 
+# Prompts user to remove existing known device and removes from JSON
 def remove_known_dev(known_dev_config):
     dev_to_remove = input("Known Device Mac Address: ").lower().strip()
     del known_dev_config["known_devices"][dev_to_remove]
     sc.save_config(sc.known_devices_config, known_dev_config)
+    print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Known Devices Configuration has been updated{Style.RESET_ALL}")
+
 
 # UI
 exit = False
@@ -160,25 +179,22 @@ while exit == False:
         if submenu_choice == "1": # Score Config Options
             score_config = sc.load_json(sc.score_config_path)
             config_settings(score_config)
-            print("\n1) Edit Configuration")
-            print("2) Exit")
-            choice = input("> ")
-            if choice == "1": # Edit Score Config
+
+            submenu_choice = score_config_options()
+            if submenu_choice== "1": # Edit Score Config
                 edit_score_config(score_config)
             else:
                 continue
         elif submenu_choice == "2": # Known Devices Config Options
             known_dev_config = sc.load_json(sc.known_devices_config)
             config_settings(known_dev_config)
-            print("\n1) Add Known Device")
-            print("2) Remove Known Device ")
-            print("3) Exit")
-            choice = input("> ")
-            if choice == "1": # Edit Score Config
+
+            submenu_choice = known_dev_config_options()
+            if submenu_choice == "1": # Edit Score Config
                 add_known_dev(known_dev_config)
-            elif choice == "2":
+            elif submenu_choice == "2":
                 remove_known_dev(known_dev_config)
-            else:
+            elif submenu_choice == "3":
                 continue
     # Exit
     elif menu_choice == "4":
