@@ -62,7 +62,7 @@ class ScoreDevices:
         cx_time = self.check_connection_time()
         score += self.time_table.get(cx_time, 0)
 
-        device_trust = self.check_device_trust(mac)
+        device_trust, device_name = self.check_device_trust(mac)
         score += self.trust_table.get(device_trust, 0)
 
         return score
@@ -98,9 +98,9 @@ class ScoreDevices:
 
     def check_device_trust(self, mac):
         if mac.lower() in self.trusted_devices:
-            return "TRUSTED"
+            return "TRUSTED", self.trusted_devices[mac.lower()]
         else:
-            return "UNKNOWN"
+            return "UNKNOWN", None
 
     def explain_score(self, mac):
         vendor_name = self.get_vendor(mac)
@@ -108,7 +108,7 @@ class ScoreDevices:
         vendor_type = self.check_vendor_classifier(vendor_name)
         mac_type = self.check_mac_type(mac)
         cx_time = self.check_connection_time()
-        device_trust = self.check_device_trust(mac)
+        device_trust, device_name = self.check_device_trust(mac)
 
         return {
             "VENDOR NAME": vendor_name,
@@ -117,6 +117,7 @@ class ScoreDevices:
             "MAC TYPE": mac_type,
             "CONNECTION TIME": cx_time,
             "DEVICE TRUST": device_trust,
+            "DEVICE NAME": device_name or "N/A"
         }
 
 
