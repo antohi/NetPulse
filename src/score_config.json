@@ -17,5 +17,8 @@
   "time_table": {
     "off_hours": -20,
     "on_hours": 10
+  },
+  "known_device_table": {
+    "34:6f:92:38:61:0f": 100
   }
 }
