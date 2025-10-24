@@ -101,7 +101,10 @@ def show_all_scans():
 
 def scoring_customization():
     score_config = sc.load_json()
-    print(json.dumps(score_config, indent=2))
+    for key, table in score_config.items():
+        print(f"\n{Fore.GREEN}[{key.upper()}]{Style.RESET_ALL}")
+        for k, v in table.items():
+            print(f"  {Fore.LIGHTWHITE_EX}{k}: {v}{Style.RESET_ALL}")
 
 # UI
 exit = False
@@ -119,12 +122,12 @@ while exit == False:
         else:
             continue
     elif menu_choice == "3":
+        scoring_customization()
+    elif menu_choice == "4":
         exit = True
         break
-    elif menu_choice == "4":
-        scoring_customization()
     else:
-        "[ERROR] Invalid Menu Choice"
+        print("[ERROR] Invalid Menu Choice")
 
 
 
