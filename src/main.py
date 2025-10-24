@@ -1,13 +1,16 @@
+import json
+
 import Scan
 from LiveMonitor import LiveMonitor
 from colorama import Fore, Style
 import requests
-
 from VirusTotalAPI import VirusTotalAPI
+from src.ScoreConfigManager import ScoreConfigManager
 
 s = Scan.Scan()
 lm = LiveMonitor(s)
 vt = VirusTotalAPI()
+sc = ScoreConfigManager()
 
 # Place styled opening bracket (for UI headings)
 def psob():
@@ -40,6 +43,7 @@ def main_menu():
     print(f"{Fore.LIGHTWHITE_EX}1) Live Monitor")
     print(f"2) Scan History")
     print(f"3) Exit")
+    print(f"4) Scoring Customization")
     return input("> ")
 
 # Starts live monitoring
@@ -61,7 +65,6 @@ def start_live_monitor():
             return False
         else:
             print(f"\n{Fore.LIGHTRED_EX}[ERROR] Invalid input!{Style.RESET_ALL}")
-
 
 # Scan History menu from main menu option
 def scan_history_menu():
@@ -96,6 +99,10 @@ def show_all_scans():
         for ip, dev in scan.items():
             print(dev)
 
+def scoring_customization():
+    score_config = sc.load_json()
+    print(json.dumps(score_config, indent=2))
+
 # UI
 exit = False
 while exit == False:
@@ -114,6 +121,8 @@ while exit == False:
     elif menu_choice == "3":
         exit = True
         break
+    elif menu_choice == "4":
+        scoring_customization()
     else:
         "[ERROR] Invalid Menu Choice"
 
