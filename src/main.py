@@ -100,7 +100,7 @@ def show_all_scans():
         for ip, dev in scan.items():
             print(dev)
 
-def scoring_customization_menu():
+def configuration_settings_menu():
     print(f"\n{Fore.LIGHTWHITE_EX}===[{Style.RESET_ALL}{Fore.BLUE}Configuration Settings{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]==={Style.RESET_ALL}")
     print(f"{psob()}{style_heading("MENU")}{pscb()}")
     print(f"{Fore.LIGHTWHITE_EX}1) Score Configuration{Style.RESET_ALL}")
@@ -109,17 +109,14 @@ def scoring_customization_menu():
 
     return input("> ")
 
-
-def score_config_settings(score_config):
-    for key, table in score_config.items():
+# Shows current config
+def config_settings(config):
+    for key, table in config.items():
         print(f"\n{Fore.GREEN}[{key.upper()}]{Style.RESET_ALL}")
         for k, v in table.items():
             print(f"  {Fore.LIGHTWHITE_EX}{k}: {v}{Style.RESET_ALL}")
-    print("\n1) Edit Configuration")
-    print("2) Exit")
 
-    return input("> ")
-
+# Edits score config and saves JSON
 def edit_score_config(score_config):
     category_selection = input("Select Category: ").lower().strip()
     config_selection = input("Select Config: ").lower().strip()
@@ -127,14 +124,27 @@ def edit_score_config(score_config):
     score_config[category_selection][config_selection] = value
     sc.save_config(sc.score_config_path, score_config)
 
+def add_known_dev(known_dev_config):
+    new_device = input("Known Device Mac Address: ").lower().strip()
+    value = input("Known Device Name (ex. Bob's Macbook): ")
+    known_dev_config["known_devices"][new_device] = value
+    sc.save_config(sc.known_devices_config, known_dev_config)
+
+def remove_known_dev(known_dev_config):
+    dev_to_remove = input("Known Device Mac Address: ").lower().strip()
+    del known_dev_config["known_devices"][dev_to_remove]
+    sc.save_config(sc.known_devices_config, known_dev_config)
 
 # UI
 exit = False
 while exit == False:
+    # Live Monitor
     menu_choice = main_menu()
     if menu_choice == "1":
         if not start_live_monitor():
             continue
+
+    # Scan History
     elif menu_choice == "2":
         submenu_choice = scan_history_menu()
         if submenu_choice == "1":
@@ -143,17 +153,39 @@ while exit == False:
             show_all_scans()
         else:
             continue
+
+    # Configuration Settings
     elif menu_choice == "3":
-        submenu_choice = scoring_customization_menu()
-        if submenu_choice == "1":
+        submenu_choice = configuration_settings_menu()
+        if submenu_choice == "1": # Score Config Options
             score_config = sc.load_json(sc.score_config_path)
-            if score_config_settings(score_config) == "1":
+            config_settings(score_config)
+            print("\n1) Edit Configuration")
+            print("2) Exit")
+            choice = input("> ")
+            if choice == "1": # Edit Score Config
                 edit_score_config(score_config)
             else:
                 continue
+        elif submenu_choice == "2": # Known Devices Config Options
+            known_dev_config = sc.load_json(sc.known_devices_config)
+            config_settings(known_dev_config)
+            print("\n1) Add Known Device")
+            print("2) Remove Known Device ")
+            print("3) Exit")
+            choice = input("> ")
+            if choice == "1": # Edit Score Config
+                add_known_dev(known_dev_config)
+            elif choice == "2":
+                remove_known_dev(known_dev_config)
+            else:
+                continue
+    # Exit
     elif menu_choice == "4":
         exit = True
         break
+
+    # Invalid menu option
     else:
         print(f"{Fore.RED}Invalid menu option!{Style.RESET_ALL}")
 
