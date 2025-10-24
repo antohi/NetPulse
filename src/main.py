@@ -42,8 +42,8 @@ def main_menu():
     print(f"\n{psob()}{style_heading('MENU')}{pscb()}")
     print(f"{Fore.LIGHTWHITE_EX}1) Live Monitor")
     print(f"2) Scan History")
-    print(f"3) Exit")
-    print(f"4) Scoring Customization")
+    print(f"3) Scoring Customization")
+    print(f"4) Exit")
     return input("> ")
 
 # Starts live monitoring
@@ -99,7 +99,14 @@ def show_all_scans():
         for ip, dev in scan.items():
             print(dev)
 
-def scoring_customization():
+def scoring_customization_menu():
+    print(f"\n{Fore.LIGHTWHITE_EX}===[{Style.RESET_ALL}{Fore.BLUE}Scoring Customization{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]==={Style.RESET_ALL}")
+    print(f"{psob()}{style_heading("MENU")}{pscb()}")
+    print(f"{Fore.LIGHTWHITE_EX}1) Show Current Score Config{Style.RESET_ALL}")
+    return input("> ")
+
+
+def show_current_score_config():
     score_config = sc.load_json()
     for key, table in score_config.items():
         print(f"\n{Fore.GREEN}[{key.upper()}]{Style.RESET_ALL}")
@@ -122,12 +129,14 @@ while exit == False:
         else:
             continue
     elif menu_choice == "3":
-        scoring_customization()
+        submenu_choice = scoring_customization_menu()
+        if submenu_choice == "1":
+            show_current_score_config()
     elif menu_choice == "4":
         exit = True
         break
     else:
-        print("[ERROR] Invalid Menu Choice")
+        print(f"{Fore.RED}Invalid menu option!{Style.RESET_ALL}")
 
 
 
