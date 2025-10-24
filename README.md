@@ -33,12 +33,17 @@ Think of it as a **mini SIEM for your LAN**, it collects logs, applies scoring l
 ![Menu2](screenshots/lm_menu.png)
 ### Live Scan
 ![Scans](screenshots/lm_scans.png)
+![Scans](screenshots/lm_scans_2.png)
 ![Scans](screenshots/lm_exit.png)
 ### Scan History
 ![History](screenshots/sh_menu.png)
 ![History1](screenshots/sh_res.png)
-### (NEW) Virust Total Public IP Scoring
-![VT](screenshots/vt_public_ip_score.png)
+
+Updated scan history screenshot to include known device naming and scoring
+![History1](screenshots/sh_res_2.png)
+
+
+
 
 
 
