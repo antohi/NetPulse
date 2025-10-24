@@ -115,7 +115,7 @@ while exit == False:
         exit = True
         break
     else:
-        "[ERROR] Invalid Menu Choice"
+        print(f"{Fore.RED}Invalid menu option!{Style.RESET_ALL}")
 
 
 
