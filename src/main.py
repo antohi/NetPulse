@@ -1,4 +1,5 @@
 import json
+from unicodedata import category
 
 import Scan
 from LiveMonitor import LiveMonitor
@@ -103,6 +104,7 @@ def scoring_customization_menu():
     print(f"\n{Fore.LIGHTWHITE_EX}===[{Style.RESET_ALL}{Fore.BLUE}Scoring Customization{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]==={Style.RESET_ALL}")
     print(f"{psob()}{style_heading("MENU")}{pscb()}")
     print(f"{Fore.LIGHTWHITE_EX}1) Show Current Score Config{Style.RESET_ALL}")
+    print(f"2) Edit Config {Style.RESET_ALL}")
     return input("> ")
 
 
@@ -112,6 +114,13 @@ def show_current_score_config():
         print(f"\n{Fore.GREEN}[{key.upper()}]{Style.RESET_ALL}")
         for k, v in table.items():
             print(f"  {Fore.LIGHTWHITE_EX}{k}: {v}{Style.RESET_ALL}")
+
+    category_selection = input("Select Category: ")
+    config_selection = input("Select Config: ")
+    value = input("New score value: ")
+    score_config[category_selection][config_selection] = value
+    sc.save_config(score_config)
+
 
 # UI
 exit = False
