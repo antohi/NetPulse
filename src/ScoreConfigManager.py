@@ -4,14 +4,15 @@ import os
 class ScoreConfigManager:
     def __init__(self):
         self.score_config_path = "src/score_config.json"
+        self.known_devices_config = "src/known_devices_config.json"
 
     # Loads config path
-    def load_json(self):
-        with open(self.score_config_path, "r") as f:
+    def load_json(self, config):
+        with open(config, "r") as f:
             return json.load(f)
 
     # Saves updated config value
-    def save_config(self, data):
-        with open(self.score_config_path, "w") as f:
+    def save_config(self, config, data):
+        with open(config, "w") as f:
             json.dump(data, f, indent=2)
         print("[SUCCESS] Updated scoring configuration.")

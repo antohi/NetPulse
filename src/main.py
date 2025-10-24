@@ -43,7 +43,7 @@ def main_menu():
     print(f"\n{psob()}{style_heading('MENU')}{pscb()}")
     print(f"{Fore.LIGHTWHITE_EX}1) Live Monitor")
     print(f"2) Scan History")
-    print(f"3) Scoring Customization")
+    print(f"3) Configuration Settings")
     print(f"4) Exit")
     return input("> ")
 
@@ -101,25 +101,31 @@ def show_all_scans():
             print(dev)
 
 def scoring_customization_menu():
-    print(f"\n{Fore.LIGHTWHITE_EX}===[{Style.RESET_ALL}{Fore.BLUE}Scoring Customization{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]==={Style.RESET_ALL}")
+    print(f"\n{Fore.LIGHTWHITE_EX}===[{Style.RESET_ALL}{Fore.BLUE}Configuration Settings{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]==={Style.RESET_ALL}")
     print(f"{psob()}{style_heading("MENU")}{pscb()}")
-    print(f"{Fore.LIGHTWHITE_EX}1) Show Current Score Config{Style.RESET_ALL}")
-    print(f"2) Edit Config {Style.RESET_ALL}")
+    print(f"{Fore.LIGHTWHITE_EX}1) Score Configuration{Style.RESET_ALL}")
+    print(f"{Fore.LIGHTWHITE_EX}2) Known Devices Configuration{Style.RESET_ALL}")
+    print(f"{Fore.LIGHTWHITE_EX}3) Trusted Vendors Configuration{Style.RESET_ALL}")
+
     return input("> ")
 
 
-def show_current_score_config():
-    score_config = sc.load_json()
+def score_config_settings(score_config):
     for key, table in score_config.items():
         print(f"\n{Fore.GREEN}[{key.upper()}]{Style.RESET_ALL}")
         for k, v in table.items():
             print(f"  {Fore.LIGHTWHITE_EX}{k}: {v}{Style.RESET_ALL}")
+    print("\n1) Edit Configuration")
+    print("2) Exit")
 
-    category_selection = input("Select Category: ")
-    config_selection = input("Select Config: ")
-    value = input("New score value: ")
+    return input("> ")
+
+def edit_score_config(score_config):
+    category_selection = input("Select Category: ").lower().strip()
+    config_selection = input("Select Config: ").lower().strip()
+    value = input("New score value: ").lower().strip()
     score_config[category_selection][config_selection] = value
-    sc.save_config(score_config)
+    sc.save_config(sc.score_config_path, score_config)
 
 
 # UI
@@ -140,7 +146,11 @@ while exit == False:
     elif menu_choice == "3":
         submenu_choice = scoring_customization_menu()
         if submenu_choice == "1":
-            show_current_score_config()
+            score_config = sc.load_json(sc.score_config_path)
+            if score_config_settings(score_config) == "1":
+                edit_score_config(score_config)
+            else:
+                continue
     elif menu_choice == "4":
         exit = True
         break
