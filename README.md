@@ -13,7 +13,7 @@ Think of it as a **mini SIEM for your LAN**, it collects logs, applies scoring l
 ## 🔑 Features  
 - **Live Monitoring** – Continuously scans the local subnet for connected devices.  
 - **Change Detection** – Flags new devices, MAC address changes, and trust score fluctuations in real time.  
-- **Trust Scoring Engine** – Assigns a custom score to each device based on configurable JSON files. Scoring includes:  
+- **Trust Scoring Engine** – Assigns a custom score to each device. Scoring uses both user-configurable JSON files and dynamic scoring, including:
   - Vendor trustworthiness 
   - Device type classification (e.g., camera, laptop, Intel chipsets)  
   - MAC address validity (spoofed vs. legitimate)  
