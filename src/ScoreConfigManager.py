@@ -4,7 +4,8 @@ import os
 class ScoreConfigManager:
     def __init__(self):
         self.score_config_path = "src/score_config.json"
-        self.known_devices_config = "src/known_devices_config.json"
+        self.known_devices_config_path = "src/known_devices_config.json"
+        self.trusted_vendors_config_path = "src/trusted_vendors_config.json"
 
     # Loads config path
     def load_json(self, config):
