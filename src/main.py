@@ -109,7 +109,6 @@ def configuration_settings_menu():
     print(f"{Fore.LIGHTWHITE_EX}3) Trusted Vendors Configuration{Style.RESET_ALL}")
     print(f"{Fore.LIGHTWHITE_EX}4) Exit{Style.RESET_ALL}")
 
-
     return input("> ")
 
 # Shows current config
@@ -121,8 +120,9 @@ def config_settings(config):
 
 # Submenu options for Score Configurations settings
 def score_config_options():
-    print("\n1) Edit Configuration")
-    print("2) Exit")
+    print(f"{Fore.LIGHTWHITE_EX}\n1) Edit Configuration")
+    print(f"2) Exit{Style.RESET_ALL}")
+
     return input("> ")
 
 # Edits score config and saves JSON
@@ -136,9 +136,9 @@ def edit_score_config(score_config):
 
 # Submenu options for Known Devices Configurations settings
 def known_dev_config_options():
-    print("\n1) Add Known Device")
+    print(f"\n{Fore.LIGHTWHITE_EX}1) Add Known Device")
     print("2) Remove Known Device ")
-    print("3) Exit")
+    print(f"3) Exit{Style.RESET_ALL}")
     return input("> ")
 
 # Prompts user for new known device and adds to JSON
@@ -157,9 +157,9 @@ def remove_known_dev(known_dev_config):
     print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Known Devices Configuration has been updated{Style.RESET_ALL}")
 
 def trusted_vendors_config_options():
-    print("\n1) Add Trusted Vendor")
+    print(f"\n{Fore.LIGHTWHITE_EX}1) Add Trusted Vendor")
     print("2) Remove Trusted Vendor")
-    print("3) Exit")
+    print(f"3) Exit{Style.RESET_ALL}")
     return input("> ")
 
 def add_trusted_vendor(trusted_vendors_config):
