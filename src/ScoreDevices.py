@@ -14,11 +14,11 @@ class ScoreDevices:
             for vendor, trust_level in trusted_vendors_config.get("vendors_table", {}).items()
         }
 
-        with open("src/trusted_devices.json", "r") as f:
-            trusted_devices = json.load(f)
-        self.trusted_devices = {
+        with open("src/known_devices_config.json", "r") as f:
+            known_devices = json.load(f)
+        self.known_devices = {
             device.lower(): name
-            for device, name in trusted_devices.get("trusted_devices", {}).items()
+            for device, name in known_devices.get("known_devices", {}).items()
         }
 
         # Load scoring config from external JSON file
@@ -62,7 +62,7 @@ class ScoreDevices:
         cx_time = self.check_connection_time()
         score += self.time_table.get(cx_time, 0)
 
-        device_trust, device_name = self.check_device_trust(mac)
+        device_trust, device_name = self.check_known_device(mac)
         score += self.trust_table.get(device_trust, 0)
 
         return score
@@ -96,9 +96,9 @@ class ScoreDevices:
         else:
             return "okay_mac"
 
-    def check_device_trust(self, mac):
-        if mac.lower() in self.trusted_devices:
-            return "TRUSTED", self.trusted_devices[mac.lower()]
+    def check_known_device(self, mac):
+        if mac.lower() in self.known_devices:
+            return "TRUSTED", self.known_devices[mac.lower()]
         else:
             return "UNKNOWN", None
 
@@ -108,7 +108,7 @@ class ScoreDevices:
         vendor_type = self.check_vendor_classifier(vendor_name)
         mac_type = self.check_mac_type(mac)
         cx_time = self.check_connection_time()
-        device_trust, device_name = self.check_device_trust(mac)
+        device_trust, device_name = self.check_known_device(mac)
 
         return {
             "VENDOR NAME": vendor_name,
