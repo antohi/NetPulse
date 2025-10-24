@@ -43,6 +43,31 @@ Think of it as a **mini SIEM for your LAN**, it collects logs, applies scoring l
 Updated scan history screenshot to include known device naming and scoring
 ![History1](screenshots/sh_res_2.png)
 
+---
+
+## Running NetPulse (requires root)
+
+NetPulse performs low-level ARP/Ethernet scanning with Scapy, which requires administrative privileges.
+
+```bash
+git clone https://github.com/antohi/netpulse.git
+cd netpulse
+
+# Create virtual env
+python3 -m venv venv
+source venv/bin/activate   # Mac / Linux
+# On Windows (PowerShell): venv\Scripts\Activate.ps1
+
+# Install dependencies 
+pip install -r requirements.txt
+
+# (Optional) Create a .env file in the project root (used for VirusTotal API):
+API_KEY=your_virustotal_api_key_here
+
+# Run NetPulse (Mac / Linux)
+sudo -E ./venv/bin/python src/main.py # sudo is required so Scapy can send/receive raw packets on the network interface.
+
+
 
 
 
