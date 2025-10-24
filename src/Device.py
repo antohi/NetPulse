@@ -14,10 +14,6 @@ class Device:
 
         self.trust_score = score
         self.time_detected = time_detected
-
-        vt = VirusTotalAPI()
-        self.vt_score = vt.virus_total_scan(self.ip)
-
         self.info = info
 
 
@@ -25,4 +21,4 @@ class Device:
         return self.info
 
     def __repr__(self):
-        return f"TIME: {self.time_detected.strftime('%H:%M:%S')} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | KNOWN: {self.known_device} | DEV NAME: {self.device_name} | TS: {self.trust_score} "
+        return f"TIME: {self.time_detected.strftime('%H:%M:%S')} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | KNOWN: {self.known_device} | DEV NAME: {self.device_name} | TS: {self.trust_score}"
