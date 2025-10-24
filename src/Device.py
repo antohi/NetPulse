@@ -9,7 +9,7 @@ class Device:
         self.vendor_type = info.get("VENDOR TYPE")
         self.vendor_trust = info.get("VENDOR TRUST")
         self.mac_type = info.get("MAC TYPE")
-        self.device_trust = info.get("DEVICE TRUST")
+        self.known_device = info.get("KNOWN DEVICE")
         self.device_name = info.get("DEVICE NAME")
 
         self.trust_score = score
@@ -25,4 +25,4 @@ class Device:
         return self.info
 
     def __repr__(self):
-        return f"TIME: {self.time_detected.strftime('%H:%M:%S')} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | DEVICE TRUST: {self.device_trust} | DEVICE NAME: {self.device_name} | TS: {self.trust_score} "
+        return f"TIME: {self.time_detected.strftime('%H:%M:%S')} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | KNOWN: {self.known_device} | DEV NAME: {self.device_name} | TS: {self.trust_score} "

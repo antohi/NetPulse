@@ -18,8 +18,8 @@
     "off_hours": -20,
     "on_hours": 10
   },
-  "trust_table": {
-    "TRUSTED": 100,
-    "UNKNOWN": 0
+  "known_device_table": {
+    "Y": 100,
+    "N": 0
   }
 }

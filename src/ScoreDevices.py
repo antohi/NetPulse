@@ -29,7 +29,7 @@ class ScoreDevices:
         self.vendor_type_table = score_config.get("vendor_type_table", {})
         self.mac_type_table = score_config.get("mac_type_table", {})
         self.time_table = score_config.get("time_table", {})
-        self.trust_table = score_config.get("trust_table", {})
+        self.known_device_table = score_config.get("known_device_table", {})
 
         self.parser = manuf.MacParser()
 
@@ -62,8 +62,8 @@ class ScoreDevices:
         cx_time = self.check_connection_time()
         score += self.time_table.get(cx_time, 0)
 
-        device_trust, device_name = self.check_known_device(mac)
-        score += self.trust_table.get(device_trust, 0)
+        known_device, device_name = self.check_known_device(mac)
+        score += self.known_device_table.get(known_device, 0)
 
         return score
 
@@ -98,9 +98,9 @@ class ScoreDevices:
 
     def check_known_device(self, mac):
         if mac.lower() in self.known_devices:
-            return "TRUSTED", self.known_devices[mac.lower()]
+            return "Y", self.known_devices[mac.lower()] # Y = KNOWN DEVICE
         else:
-            return "UNKNOWN", None
+            return "N", None # N = UNKNOWN DEVICE
 
     def explain_score(self, mac):
         vendor_name = self.get_vendor(mac)
@@ -108,7 +108,7 @@ class ScoreDevices:
         vendor_type = self.check_vendor_classifier(vendor_name)
         mac_type = self.check_mac_type(mac)
         cx_time = self.check_connection_time()
-        device_trust, device_name = self.check_known_device(mac)
+        known_device, device_name = self.check_known_device(mac)
 
         return {
             "VENDOR NAME": vendor_name,
@@ -116,7 +116,7 @@ class ScoreDevices:
             "VENDOR TRUST": ven_trust,
             "MAC TYPE": mac_type,
             "CONNECTION TIME": cx_time,
-            "DEVICE TRUST": device_trust,
+            "KNOWN DEVICE": known_device,
             "DEVICE NAME": device_name or "N/A"
         }
 
