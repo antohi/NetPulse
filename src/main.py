@@ -127,9 +127,9 @@ def score_config_options():
 
 # Edits score config and saves JSON
 def edit_score_config(score_config):
-    category_selection = input("Select Category: ").lower().strip()
-    config_selection = input("Select Config: ").lower().strip()
-    value = input("New score value: ").lower().strip()
+    category_selection = input(f"{Fore.LIGHTWHITE_EX}Select Category: ").lower().strip()
+    config_selection = input(f"Select Config: ").lower().strip()
+    value = input(f"New score value: {Style.RESET_ALL}").lower().strip()
     score_config[category_selection][config_selection] = value
     sc.save_config(sc.score_config_path, score_config)
     print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Score Configuration has been updated{Style.RESET_ALL}")
@@ -143,15 +143,15 @@ def known_dev_config_options():
 
 # Prompts user for new known device and adds to JSON
 def add_known_dev(known_dev_config):
-    new_device = input("Known Device Mac Address: ").lower().strip()
-    value = input("Known Device Name (ex. Bob's Macbook): ")
+    new_device = input(f"{Fore.LIGHTWHITE_EX}Known Device Mac Address: ").lower().strip()
+    value = input(f"Known Device Name (ex. Bob's Macbook): {Style.RESET_ALL}")
     known_dev_config["known_devices"][new_device] = value
     sc.save_config(sc.known_devices_config_path, known_dev_config)
     print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Known Devices Configuration has been updated{Style.RESET_ALL}")
 
 # Prompts user to remove existing known device and removes from JSON
 def remove_known_dev(known_dev_config):
-    dev_to_remove = input("Known Device Mac Address: ").lower().strip()
+    dev_to_remove = input(f"{Fore.LIGHTWHITE_EX}Known Device Mac Address: {Style.RESET_ALL}").lower().strip()
     del known_dev_config["known_devices"][dev_to_remove]
     sc.save_config(sc.known_devices_config_path, known_dev_config)
     print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Known Devices Configuration has been updated{Style.RESET_ALL}")
@@ -165,14 +165,14 @@ def trusted_vendors_config_options():
 
 # Prompts user for new trusted vendor and adds to JSON
 def add_trusted_vendor(trusted_vendors_config):
-    new_vendor = input("Vendor Name: ").lower().strip()
+    new_vendor = input(f"{Fore.LIGHTWHITE_EX}Vendor Name: {Style.RESET_ALL}").lower().strip()
     trusted_vendors_config["vendors_table"][new_vendor] = "trusted"
     sc.save_config(sc.trusted_vendors_config_path, trusted_vendors_config)
     print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Trusted Vendors Configuration has been updated{Style.RESET_ALL}")
 
 # Prompts user to remove existing trusted vendor and removes from JSON
 def remove_trusted_vendor(trusted_vendors_config):
-    vendor_to_remove = input("Vendor Name: ").lower().strip()
+    vendor_to_remove = input(f"{Fore.LIGHTWHITE_EX}Vendor Name: {Style.RESET_ALL}").lower().strip()
     del trusted_vendors_config["vendors_table"][vendor_to_remove]
     sc.save_config(sc.trusted_vendors_config_path, trusted_vendors_config)
     print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Trusted Vendors Configuration has been updated{Style.RESET_ALL}")
