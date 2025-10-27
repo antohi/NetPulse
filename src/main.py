@@ -156,18 +156,21 @@ def remove_known_dev(known_dev_config):
     sc.save_config(sc.known_devices_config_path, known_dev_config)
     print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Known Devices Configuration has been updated{Style.RESET_ALL}")
 
+# Submenu options for Trusted Vendors Configurations settings
 def trusted_vendors_config_options():
     print(f"\n{Fore.LIGHTWHITE_EX}1) Add Trusted Vendor")
     print("2) Remove Trusted Vendor")
     print(f"3) Exit{Style.RESET_ALL}")
     return input("> ")
 
+# Prompts user for new trusted vendor and adds to JSON
 def add_trusted_vendor(trusted_vendors_config):
     new_vendor = input("Vendor Name: ").lower().strip()
     trusted_vendors_config["vendors_table"][new_vendor] = "trusted"
     sc.save_config(sc.trusted_vendors_config_path, trusted_vendors_config)
     print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Trusted Vendors Configuration has been updated{Style.RESET_ALL}")
 
+# Prompts user to remove existing trusted vendor and removes from JSON
 def remove_trusted_vendor(trusted_vendors_config):
     vendor_to_remove = input("Vendor Name: ").lower().strip()
     del trusted_vendors_config["vendors_table"][vendor_to_remove]
@@ -199,16 +202,15 @@ while exit == False:
         if submenu_choice == "1": # Score Config Options
             score_config = sc.load_json(sc.score_config_path)
             config_settings(score_config)
-
             submenu_choice = score_config_options()
             if submenu_choice== "1": # Edit Score Config
                 edit_score_config(score_config)
             else:
                 continue
+
         elif submenu_choice == "2": # Known Devices Config Options
             known_dev_config = sc.load_json(sc.known_devices_config_path)
             config_settings(known_dev_config)
-
             submenu_choice = known_dev_config_options()
             if submenu_choice == "1": # Add known vendor
                 add_known_dev(known_dev_config)
@@ -216,10 +218,10 @@ while exit == False:
                 remove_known_dev(known_dev_config)
             elif submenu_choice == "3":
                 continue
+
         elif submenu_choice == "3": # Known Devices Config Options
             trusted_vendors_config = sc.load_json(sc.trusted_vendors_config_path)
             config_settings(trusted_vendors_config)
-
             submenu_choice = trusted_vendors_config_options()
             if submenu_choice == "1": # Add trusted vendor
                 add_trusted_vendor(trusted_vendors_config)
