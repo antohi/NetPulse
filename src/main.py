@@ -1,17 +1,14 @@
-import json
-from unicodedata import category
-
 import Scan
 from LiveMonitor import LiveMonitor
 from colorama import Fore, Style
 import requests
 from VirusTotalAPI import VirusTotalAPI
-from src.ScoreConfigManager import ScoreConfigManager
+from src.ConfigManager import ConfigManager
 
 s = Scan.Scan()
 lm = LiveMonitor(s)
 vt = VirusTotalAPI()
-sc = ScoreConfigManager()
+sc = ConfigManager()
 
 # Place styled opening bracket (for UI headings)
 def psob():

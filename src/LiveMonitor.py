@@ -12,12 +12,13 @@ class LiveMonitor:
         self.thread = None
         self.scan_history = []
 
-    # Starts and initializes live monitoring
+    # Starts live network monitoring in a background thread
     def start(self):
         self.continue_monitoring = True
         self.thread = threading.Thread(target=self.monitor)
         self.thread.start()
 
+    # Continuously runs network scans until monitoring is stopped.
     def monitor(self):
         while self.continue_monitoring:
             current_scan = self.scanner.scan()
@@ -26,7 +27,8 @@ class LiveMonitor:
             self.previous_scan = current_scan
             time.sleep(self.interval)
 
-    # Detects changes in the current scan and previous scan
+    # Compares the current scan to the previous one and prints any differences.
+    # Highlights new devices, MAC changes, trust-score updates, or low-trust devices.
     def detect_changes(self, current_scan):
         print("-"*150)
         for ip, device in current_scan.items():
@@ -46,11 +48,14 @@ class LiveMonitor:
                     print(f"{Fore.LIGHTWHITE_EX}[-] [No Change] {device}{Style.RESET_ALL}")
             print("-" * 150)
 
+    # Stops the monitoring loop and waits for the thread to exit cleanly.
     def stop_monitoring(self):
         self.continue_monitoring = False
         if self.thread:
             self.thread.join()
 
+    # Saves all scan history to a CSV file for later review.
+    # Each row includes timestamp, IP, MAC, vendor, and trust score.
     def log_results(self):
         try:
             csv_path = "logs/net_log.csv"

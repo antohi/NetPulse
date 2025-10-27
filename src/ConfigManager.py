@@ -1,7 +1,6 @@
 import json
-import os
 
-class ScoreConfigManager:
+class ConfigManager:
     def __init__(self):
         # Paths for JSON files
         self.score_config_path = "src/score_config.json"
