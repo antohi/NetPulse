@@ -4,7 +4,7 @@
 ---
 
 ## 🚀 Overview  
-NetPulse is a lightweight, Python-based **network monitoring tool** that detects new devices, MAC spoofing attempts, and anomalies on a local subnet. It assigns a **dynamic trust score** to each device using configurable JSON policies, helping analysts quickly identify potentially suspicious behavior.  
+NetPulse is a lightweight, Python-based **network monitoring tool** that detects new devices, MAC spoofing attempts, and anomalies on a local subnet. It assigns a **dynamic trust score** to each device using UI configurable JSON policies, helping analysts quickly identify potentially suspicious behavior.  
 
 Think of it as a **mini SIEM for your LAN**, it collects logs, applies scoring logic, highlights anomalies, and stores scan history for audit and review.  
 
@@ -13,13 +13,13 @@ Think of it as a **mini SIEM for your LAN**, it collects logs, applies scoring l
 ## 🔑 Features  
 - **Live Monitoring** – Continuously scans the local subnet for connected devices.  
 - **Change Detection** – Flags new devices, MAC address changes, and trust score fluctuations in real time.  
-- **Trust Scoring Engine** – Assigns a custom score to each device. Scoring uses both user-configurable JSON files and dynamic scoring, including:
+- **Trust Scoring Engine** – Assigns a custom score to each device. Scoring uses both user-configurable JSON files via UI and dynamic scoring, including:
   - Vendor trustworthiness 
   - Device type classification (e.g., camera, laptop, Intel chipsets)  
   - MAC address validity (spoofed vs. legitimate)  
   - Connection time (business hours vs. off-hours)
   - Known devices (naming known devices and configuring score based on known device)
-- **Configurable Policies** – External JSON files define scoring rules and trusted vendors for easy customization.
+- **Configurable Policies** – UI configurable external JSON files define scoring rules and trusted vendors for easy customization. 
 - **VirusTotal API Score** - VirustTotal API custom scoring if provided API key 
 - **Color-Coded Alerts** – Terminal output highlights anomalies and low-trust devices for quick triage.  
 - **Scan History** – Maintains a full history of previous scans for review.  
@@ -28,20 +28,28 @@ Think of it as a **mini SIEM for your LAN**, it collects logs, applies scoring l
 
 ---
 
-## Screenshots
-### Main Menu
+# Screenshots
+## Main Menu
 ![Menu](screenshots/MainMenu.png)
 ![Menu2](screenshots/lm_menu.png)
-### Live Scan
+## Live Scan
 ![Scans](screenshots/lm_scans.png)
 ![Scans](screenshots/lm_scans_2.png)
 ![Scans](screenshots/lm_exit.png)
-### Scan History
+## Scan History
 ![History](screenshots/sh_menu.png)
 ![History1](screenshots/sh_res.png)
 
-Updated scan history screenshot to include known device naming and scoring
+### Updated scan history screenshot to include known device naming and scoring
 ![History1](screenshots/sh_res_2.png)
+
+## UI JSON Configuration Settings
+### Entering config settings through UI
+![Config1](screenshots/config1.png)
+### Editing score weight for off_hours
+![Config1](screenshots/config2.png)
+### Result of edit (reflected in JSON file)
+![Config1](screenshots/config3.png)
 
 ---
 
