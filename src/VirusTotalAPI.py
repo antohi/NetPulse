@@ -17,13 +17,12 @@ class VirusTotalAPI:
             a = response.get("data", {}).get("attributes", {})
             stats = a.get("last_analysis_stats", {})
             votes = a.get("total_votes", {})
-            rep   = a.get("reputation", 0)
-
-            malicious  = int(stats.get("malicious", 0))
+            rep = a.get("reputation", 0)
+            malicious = int(stats.get("malicious", 0))
             suspicious = int(stats.get("suspicious", 0))
-            positives  = malicious + suspicious
-            vote_mal   = int(votes.get("malicious", 0))
-            vote_har   = int(votes.get("harmless", 0))
+            positives = malicious + suspicious
+            vote_mal = int(votes.get("malicious", 0))
+            vote_har = int(votes.get("harmless", 0))
 
             if positives > 0:
                 return "UNSAFE"
