@@ -10,6 +10,37 @@ lm = LiveMonitor(s)
 vt = VirusTotalAPI()
 sc = ConfigManager()
 
+import os
+import sys
+import ctypes
+from colorama import Fore, Style
+
+# Checks program is being run as root
+def check_privileges():
+    try:
+        # macOS/Linux check
+        if os.name != "nt" and os.geteuid() != 0:
+            print(f"{Fore.LIGHTRED_EX}[ERROR] NetPulse requires root privileges to perform network scans.{Style.RESET_ALL}")
+            print(f"{Fore.YELLOW}[!] Please re-run using: sudo -E ./venv/bin/python src/main.py{Style.RESET_ALL}")
+            sys.exit(1)
+
+        # Windows check
+        elif os.name == "nt":
+            is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
+            if not is_admin:
+                print(f"{Fore.LIGHTRED_EX}[ERROR] Administrator privileges required for ARP scanning.{Style.RESET_ALL}")
+                print(f"{Fore.YELLOW}[!] Right-click and select 'Run as Administrator' or run from elevated PowerShell.{Style.RESET_ALL}")
+                sys.exit(1)
+
+    except AttributeError:
+        # getpass-based fallback for nonstandard environments
+        print(f"{Fore.LIGHTRED_EX}[WARNING] Could not determine privilege level. Proceeding with caution.{Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{Fore.LIGHTRED_EX}[ERROR] Privilege check failed: {e}{Style.RESET_ALL}")
+        sys.exit(1)
+
+check_privileges()
+
 # Place styled opening bracket (for UI headings)
 def psob():
     return f"{Fore.LIGHTWHITE_EX}[{Style.RESET_ALL}"
@@ -41,7 +72,7 @@ def main_menu():
     print(f"{Fore.LIGHTWHITE_EX}1) Live Monitor")
     print(f"2) Scan History")
     print(f"3) Configuration Settings")
-    print(f"4) Exit")
+    print(f"4) Exit{Style.RESET_ALL}")
     return input("> ")
 
 # Starts live monitoring
@@ -124,12 +155,42 @@ def score_config_options():
 
 # Edits score config and saves JSON
 def edit_score_config(score_config):
-    category_selection = input(f"{Fore.LIGHTWHITE_EX}Select Category: ").lower().strip()
-    config_selection = input(f"Select Config: ").lower().strip()
-    value = int(input(f"New score value: {Style.RESET_ALL}").lower().strip())
-    score_config[category_selection][config_selection] = value
-    sc.save_config(sc.score_config_path, score_config)
-    print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Score Configuration has been updated{Style.RESET_ALL}")
+    try:
+        category_selection = input(f"{Fore.LIGHTWHITE_EX}Select Category: ").lower().strip()
+
+        # Validate category
+        if category_selection not in score_config:
+            print(f"{Fore.LIGHTRED_EX}[ERROR] Invalid category!{Style.RESET_ALL}")
+            return
+
+        config_selection = input(f"Select Config: ").lower().strip()
+
+        # Validate config key
+        if config_selection not in score_config[category_selection]:
+            print(f"{Fore.LIGHTRED_EX}[ERROR] Invalid config key!{Style.RESET_ALL}")
+            return
+
+        # Try to convert input to integer safely
+        try:
+            value = int(input(f"New score value: {Style.RESET_ALL}").strip())
+        except ValueError:
+            print(f"{Fore.LIGHTRED_EX}[ERROR] Score value must be an integer.{Style.RESET_ALL}")
+            return
+
+        # Update config and save to JSON
+        score_config[category_selection][config_selection] = value
+
+        try:
+            sc.save_config(sc.score_config_path, score_config)
+            print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Score Configuration has been updated.{Style.RESET_ALL}")
+        except Exception as e:
+            print(f"{Fore.LIGHTRED_EX}[ERROR] Failed to save configuration: {e}{Style.RESET_ALL}")
+
+    except KeyboardInterrupt:
+        print(f"\n{Fore.YELLOW}[!] Operation cancelled by user.{Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{Fore.LIGHTRED_EX}[ERROR] Unexpected issue: {e}{Style.RESET_ALL}")
+
 
 # Submenu options for Known Devices Configurations settings
 def known_dev_config_options():
@@ -140,7 +201,7 @@ def known_dev_config_options():
 
 # Prompts user for new known device and adds to JSON
 def add_known_dev(known_dev_config):
-    new_device = input(f"{Fore.LIGHTWHITE_EX}Known Device Mac Address: ").lower().strip()
+    new_device = input(f"{Fore.LIGHTWHITE_EX}Known Device Mac Address: {Style.RESET_ALL}").lower().strip()
     value = input(f"Known Device Name (ex. Bob's Macbook): {Style.RESET_ALL}")
     known_dev_config["known_devices"][new_device] = value
     sc.save_config(sc.known_devices_config_path, known_dev_config)
@@ -148,10 +209,35 @@ def add_known_dev(known_dev_config):
 
 # Prompts user to remove existing known device and removes from JSON
 def remove_known_dev(known_dev_config):
-    dev_to_remove = input(f"{Fore.LIGHTWHITE_EX}Known Device Mac Address: {Style.RESET_ALL}").lower().strip()
-    del known_dev_config["known_devices"][dev_to_remove]
-    sc.save_config(sc.known_devices_config_path, known_dev_config)
-    print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Known Devices Configuration has been updated{Style.RESET_ALL}")
+    try:
+        dev_to_remove = input(f"{Fore.LIGHTWHITE_EX}Known Device Mac Address: {Style.RESET_ALL}").lower().strip()
+
+        # Validate input
+        if not dev_to_remove:
+            print(f"{Fore.LIGHTRED_EX}[ERROR] No MAC address entered.{Style.RESET_ALL}")
+            return
+
+        # Check if the device exists
+        if dev_to_remove not in known_dev_config.get("known_devices", {}):
+            print(f"{Fore.YELLOW}[!] Device not found in known devices list.{Style.RESET_ALL}")
+            return
+
+        # Attempt deletion
+        del known_dev_config["known_devices"][dev_to_remove]
+
+        # Attempt to save updated config
+        try:
+            sc.save_config(sc.known_devices_config_path, known_dev_config)
+            print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Known Devices Configuration has been updated.{Style.RESET_ALL}")
+        except Exception as e:
+            print(f"{Fore.LIGHTRED_EX}[ERROR] Failed to save updated configuration: {e}{Style.RESET_ALL}")
+
+    except KeyError as e:
+        print(f"{Fore.LIGHTRED_EX}[ERROR] Invalid data structure: missing {e}.{Style.RESET_ALL}")
+    except KeyboardInterrupt:
+        print(f"\n{Fore.YELLOW}[!] Operation cancelled by user.{Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{Fore.LIGHTRED_EX}[ERROR] Unexpected issue while removing device: {e}{Style.RESET_ALL}")
 
 # Submenu options for Trusted Vendors Configurations settings
 def trusted_vendors_config_options():
@@ -169,10 +255,35 @@ def add_trusted_vendor(trusted_vendors_config):
 
 # Prompts user to remove existing trusted vendor and removes from JSON
 def remove_trusted_vendor(trusted_vendors_config):
-    vendor_to_remove = input(f"{Fore.LIGHTWHITE_EX}Vendor Name: {Style.RESET_ALL}").lower().strip()
-    del trusted_vendors_config["vendors_table"][vendor_to_remove]
-    sc.save_config(sc.trusted_vendors_config_path, trusted_vendors_config)
-    print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Trusted Vendors Configuration has been updated{Style.RESET_ALL}")
+    try:
+        vendor_to_remove = input(f"{Fore.LIGHTWHITE_EX}Vendor Name: {Style.RESET_ALL}").lower().strip()
+
+        # Validate input
+        if not vendor_to_remove:
+            print(f"{Fore.LIGHTRED_EX}[ERROR] No vendor name entered.{Style.RESET_ALL}")
+            return
+
+        # Check if the vendor exists
+        if vendor_to_remove not in trusted_vendors_config.get("vendors_table", {}):
+            print(f"{Fore.YELLOW}[!] Vendor not found in trusted vendors list.{Style.RESET_ALL}")
+            return
+
+        # Attempt deletion
+        del trusted_vendors_config["vendors_table"][vendor_to_remove]
+
+        # Try saving updated config
+        try:
+            sc.save_config(sc.trusted_vendors_config_path, trusted_vendors_config)
+            print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Trusted Vendors Configuration has been updated.{Style.RESET_ALL}")
+        except Exception as e:
+            print(f"{Fore.LIGHTRED_EX}[ERROR] Failed to save updated configuration: {e}{Style.RESET_ALL}")
+
+    except KeyError as e:
+        print(f"{Fore.LIGHTRED_EX}[ERROR] Missing expected key in configuration: {e}{Style.RESET_ALL}")
+    except KeyboardInterrupt:
+        print(f"\n{Fore.YELLOW}[!] Operation cancelled by user.{Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{Fore.LIGHTRED_EX}[ERROR] Unexpected issue while removing vendor: {e}{Style.RESET_ALL}")
 
 # UI
 exit = False
