@@ -3,7 +3,7 @@ from LiveMonitor import LiveMonitor
 from colorama import Fore, Style
 import requests
 from VirusTotalAPI import VirusTotalAPI
-from src.ConfigManager import ConfigManager
+from ConfigManager import ConfigManager
 
 s = Scan.Scan()
 lm = LiveMonitor(s)
@@ -126,7 +126,7 @@ def score_config_options():
 def edit_score_config(score_config):
     category_selection = input(f"{Fore.LIGHTWHITE_EX}Select Category: ").lower().strip()
     config_selection = input(f"Select Config: ").lower().strip()
-    value = input(f"New score value: {Style.RESET_ALL}").lower().strip()
+    value = int(input(f"New score value: {Style.RESET_ALL}").lower().strip())
     score_config[category_selection][config_selection] = value
     sc.save_config(sc.score_config_path, score_config)
     print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Score Configuration has been updated{Style.RESET_ALL}")

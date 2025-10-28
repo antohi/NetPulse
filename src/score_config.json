@@ -11,12 +11,12 @@
     "": 0
   },
   "mac_type_table": {
-    "okay_mac": "21",
+    "okay_mac": 21,
     "sketchy_mac": -25
   },
   "time_table": {
-    "off_hours": "-25",
-    "on_hours": "-30"
+    "off_hours": -20,
+    "on_hours": -30
   },
   "known_device_table": {
     "60:83:e7:e0:57:4a": 100
