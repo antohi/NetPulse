@@ -1,19 +1,17 @@
 import Scan
 from LiveMonitor import LiveMonitor
-from colorama import Fore, Style
 import requests
 from VirusTotalAPI import VirusTotalAPI
 from ConfigManager import ConfigManager
-
-s = Scan.Scan()
-lm = LiveMonitor(s)
-vt = VirusTotalAPI()
-sc = ConfigManager()
-
 import os
 import sys
 import ctypes
 from colorama import Fore, Style
+
+vt = VirusTotalAPI()
+sc = ConfigManager()
+s = Scan.Scan()
+lm = LiveMonitor(s)
 
 # Checks program is being run as root
 def check_privileges():
@@ -86,14 +84,19 @@ def start_live_monitor():
         if user_input == "s":
             print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Starting scan...{Style.RESET_ALL}")
             lm.start()
+
         elif user_input.lower() == 'x':
             print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Exiting...{Style.RESET_ALL}")
             lm.stop_monitoring()
             print(f"\n{Fore.LIGHTWHITE_EX}[+] Stopped Live Monitor.{Style.RESET_ALL}")
             lm.log_results()
             return False
+        elif user_input == "f":
+            device_to_flag = input("IP to flag: ")
+            lm.flag_device(device_to_flag)
         else:
             print(f"\n{Fore.LIGHTRED_EX}[ERROR] Invalid input!{Style.RESET_ALL}")
+
 
 # Scan History menu from main menu option
 def scan_history_menu():

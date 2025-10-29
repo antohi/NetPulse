@@ -11,6 +11,7 @@ class LiveMonitor:
         self.continue_monitoring = True
         self.thread = None
         self.scan_history = []
+        self.flagged_devices = []
 
     # Starts live network monitoring in a background thread
     def start(self):
@@ -38,7 +39,9 @@ class LiveMonitor:
                 print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device}{Style.RESET_ALL}")
             else:
                 prev = self.previous_scan[ip]
-                if device.mac != prev.mac:
+                if device.ip in self.flagged_devices:
+                    print(f"{Fore.LIGHTWHITE_EX}[-] [!!! FLAGGED !!!]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
+                elif device.mac != prev.mac:
                     print(f"{Fore.RED}[!!!] [MAC CHANGE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} on {ip}: {prev.mac} → {device.mac}{Style.RESET_ALL}")
                 elif device.trust_score != prev.trust_score:
                     print(f"{Fore.RED}[!!!] [SCORE CHANGE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {ip} → {prev.trust_score} ➝ {device.trust_score}{Style.RESET_ALL}")
@@ -67,6 +70,12 @@ class LiveMonitor:
                         writer.writerow([rec.time_detected, rec.ip, rec.mac, rec.vendor, rec.trust_score])
         except Exception as e:
             return f"{Fore.LIGHTRED_EX} unable to write CSV network log: {e}"
+
+    def flag_device(self, ip):
+        self.flagged_devices.append(ip)
+
+
+
 
 
 
