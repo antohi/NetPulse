@@ -34,21 +34,21 @@ class LiveMonitor:
         print("-"*150)
         for ip, device in current_scan.items():
             if ip not in self.previous_scan and device.trust_score < 0:
-                print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
+                print(f"{Fore.BLUE}[-] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTYELLOW_EX} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
             elif ip not in self.previous_scan:
-                print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device}{Style.RESET_ALL}")
+                print(f"{Fore.BLUE}[-] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device}{Style.RESET_ALL}")
             else:
                 prev = self.previous_scan[ip]
                 if device.ip in self.flagged_devices:
-                    print(f"{Fore.LIGHTWHITE_EX}[-] [!!! FLAGGED !!!]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
+                    print(f"{Fore.RED}[!] [FLAGGED]{Style.RESET_ALL}{Fore.LIGHTYELLOW_EX} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
                 elif device.mac != prev.mac:
-                    print(f"{Fore.RED}[!!!] [MAC CHANGE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} on {ip}: {prev.mac} → {device.mac}{Style.RESET_ALL}")
+                    print(f"{Fore.LIGHTYELLOW_EX}[!] [MAC CHANGE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} on {ip}: {prev.mac} → {device.mac}{Style.RESET_ALL}")
                 elif device.trust_score != prev.trust_score:
-                    print(f"{Fore.RED}[!!!] [SCORE CHANGE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {ip} → {prev.trust_score} ➝ {device.trust_score}{Style.RESET_ALL}")
+                    print(f"{Fore.LIGHTYELLOW_EX}[!] [SCORE CHANGE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {ip} → {prev.trust_score} ➝ {device.trust_score}{Style.RESET_ALL}")
                 elif device.trust_score < 0:
-                    print(f"{Fore.LIGHTWHITE_EX}[-] [NO CHANGE]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
+                    print(f"{Fore.LIGHTWHITE_EX}[-] [NO CHANGE]{Style.RESET_ALL}{Fore.LIGHTYELLOW_EX} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
                 else:
-                    print(f"{Fore.LIGHTWHITE_EX}[-] [No Change] {device}{Style.RESET_ALL}")
+                    print(f"{Fore.LIGHTWHITE_EX}[-] [NO CHANGE] {device}{Style.RESET_ALL}")
             print("-" * 150)
 
     # Stops the monitoring loop and waits for the thread to exit cleanly.

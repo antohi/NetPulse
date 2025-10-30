@@ -19,17 +19,11 @@ class Device:
         # Full info dictionary for reference or export
         self.info = info
 
-        # Flagged device boolean
-        self.flagged = False
-
     # Returns the full breakdown of how the device was scored.
     def explain_scr(self):
         return self.info
 
     # Returns a readable, one-line summary of the device.
     def __repr__(self):
-        if self.flagged == False:
-            return f"TIME: {self.time_detected.strftime('%H:%M:%S')} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | KNOWN: {self.known_device} | DEV NAME: {self.device_name} | TS: {self.trust_score}"
-        else:
-            return f"TIME: {self.time_detected.strftime('%H:%M:%S')} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | KNOWN: {self.known_device} | DEV NAME: {self.device_name} | TS: {self.trust_score} | Flagged!"
+        return f"TIME: {self.time_detected.strftime('%H:%M:%S')} | IP: {self.ip} | MAC: {self.mac} | VENDOR: {self.vendor} | KNOWN: {self.known_device} | DEV NAME: {self.device_name} | TS: {self.trust_score}"
 

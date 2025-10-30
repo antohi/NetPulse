@@ -92,8 +92,10 @@ def start_live_monitor():
             lm.log_results()
             return False
         elif user_input == "f":
-            device_to_flag = input("IP to flag: ")
+            lm.stop_monitoring()
+            device_to_flag = input(f"{Fore.LIGHTWHITE_EX}IP to flag:{Style.RESET_ALL} ")
             lm.flag_device(device_to_flag)
+            lm.start()
         else:
             print(f"\n{Fore.LIGHTRED_EX}[ERROR] Invalid input!{Style.RESET_ALL}")
 
