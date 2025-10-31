@@ -1,0 +1,958 @@
+[
+    [
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.3",
+            "mac": "18:59:f5:63:66:a7",
+            "vendor": "Cisco",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.1",
+            "mac": "18:59:f5:0e:bf:27",
+            "vendor": "Cisco",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.2",
+            "mac": "7c:21:0d:b4:3c:67",
+            "vendor": "Cisco",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.8",
+            "mac": "00:04:4b:d0:83:91",
+            "vendor": "Nvidia",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.9",
+            "mac": "00:04:4b:8a:5a:5e",
+            "vendor": "Nvidia",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.10",
+            "mac": "00:04:4b:86:33:8f",
+            "vendor": "Nvidia",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.12",
+            "mac": "00:04:4b:86:4f:25",
+            "vendor": "Nvidia",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.50",
+            "mac": "28:f3:66:aa:2f:f3",
+            "vendor": "Shenzhen",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.56",
+            "mac": "88:6b:0f:f5:c6:91",
+            "vendor": "Bluegiga",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.76",
+            "mac": "9e:6d:1e:35:2d:10",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.84",
+            "mac": "04:e8:b9:fe:4b:d3",
+            "vendor": "UNKNOWN",
+            "trust_score": -9,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.87",
+            "mac": "72:26:69:32:7f:18",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.93",
+            "mac": "66:ae:fe:7d:eb:57",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.99",
+            "mac": "52:8b:9a:2f:1c:1a",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.100",
+            "mac": "7e:74:7b:1b:d5:99",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.101",
+            "mac": "b2:e2:0c:8c:a4:f3",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.103",
+            "mac": "12:78:bc:c4:85:ac",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.105",
+            "mac": "6e:f0:c3:8e:39:6c",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.107",
+            "mac": "9e:9c:84:94:79:9b",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.108",
+            "mac": "26:0e:a2:37:20:d8",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.113",
+            "mac": "3e:4d:a9:a8:6f:54",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.112",
+            "mac": "e2:cf:68:d7:35:4c",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.110",
+            "mac": "36:0c:3d:fb:5f:99",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.114",
+            "mac": "a6:96:b1:82:31:69",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.117",
+            "mac": "8e:5e:b1:74:b4:99",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.119",
+            "mac": "2a:20:e0:c5:e4:19",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.121",
+            "mac": "a8:51:5b:d7:a4:7f",
+            "vendor": "SamsungE",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.120",
+            "mac": "76:aa:88:21:fb:76",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.123",
+            "mac": "8a:fb:59:29:9d:85",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.122",
+            "mac": "aa:06:d1:9f:c5:ba",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.124",
+            "mac": "4a:0e:22:26:49:cd",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.126",
+            "mac": "1e:89:a1:da:d5:6b",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.131",
+            "mac": "44:1b:88:3e:dc:b5",
+            "vendor": "Apple",
+            "trust_score": -9,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.132",
+            "mac": "d2:81:68:d8:1f:99",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.129",
+            "mac": "16:f1:0d:7c:eb:c5",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.130",
+            "mac": "de:35:83:30:3d:ab",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.135",
+            "mac": "d2:81:ab:4e:5e:e5",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.136",
+            "mac": "16:2e:77:84:b9:1a",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.138",
+            "mac": "76:fa:00:d0:7a:a2",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.140",
+            "mac": "92:c4:e4:e1:c7:a4",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.141",
+            "mac": "fa:9f:de:eb:58:80",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.142",
+            "mac": "06:a5:e8:0c:29:52",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.144",
+            "mac": "36:99:a6:90:6f:57",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.145",
+            "mac": "86:4e:6d:84:3a:82",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.146",
+            "mac": "46:75:6b:2b:a4:51",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.147",
+            "mac": "a6:14:21:cf:4a:7f",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.149",
+            "mac": "86:ea:08:12:96:8b",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.150",
+            "mac": "12:84:65:ff:0f:41",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.152",
+            "mac": "b6:77:51:32:eb:b9",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.153",
+            "mac": "52:45:ab:4f:c6:a6",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.155",
+            "mac": "6a:31:33:23:a8:2a",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.154",
+            "mac": "22:bb:80:44:d0:01",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.151",
+            "mac": "1e:bd:c5:0f:7b:6f",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.157",
+            "mac": "42:05:67:99:46:21",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.158",
+            "mac": "b2:22:88:42:28:76",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.163",
+            "mac": "06:1f:28:52:b3:4b",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.173",
+            "mac": "fc:03:9f:1a:50:f2",
+            "vendor": "SamsungE",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:07",
+            "ip": "10.150.253.170",
+            "mac": "a8:ca:77:77:29:36",
+            "vendor": "UNKNOWN",
+            "trust_score": -9,
+            "flagged": false
+        }
+    ],
+    [
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.1",
+            "mac": "18:59:f5:0e:bf:27",
+            "vendor": "Cisco",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.3",
+            "mac": "18:59:f5:63:66:a7",
+            "vendor": "Cisco",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.2",
+            "mac": "7c:21:0d:b4:3c:67",
+            "vendor": "Cisco",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.12",
+            "mac": "00:04:4b:86:4f:25",
+            "vendor": "Nvidia",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.10",
+            "mac": "00:04:4b:86:33:8f",
+            "vendor": "Nvidia",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.8",
+            "mac": "00:04:4b:d0:83:91",
+            "vendor": "Nvidia",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.9",
+            "mac": "00:04:4b:8a:5a:5e",
+            "vendor": "Nvidia",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.50",
+            "mac": "28:f3:66:aa:2f:f3",
+            "vendor": "Shenzhen",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.56",
+            "mac": "88:6b:0f:f5:c6:91",
+            "vendor": "Bluegiga",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.76",
+            "mac": "9e:6d:1e:35:2d:10",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.84",
+            "mac": "04:e8:b9:fe:4b:d3",
+            "vendor": "UNKNOWN",
+            "trust_score": -9,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.87",
+            "mac": "72:26:69:32:7f:18",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.93",
+            "mac": "66:ae:fe:7d:eb:57",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.100",
+            "mac": "7e:74:7b:1b:d5:99",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.101",
+            "mac": "b2:e2:0c:8c:a4:f3",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.99",
+            "mac": "52:8b:9a:2f:1c:1a",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.103",
+            "mac": "12:78:bc:c4:85:ac",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.107",
+            "mac": "9e:9c:84:94:79:9b",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.105",
+            "mac": "6e:f0:c3:8e:39:6c",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.108",
+            "mac": "26:0e:a2:37:20:d8",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.110",
+            "mac": "36:0c:3d:fb:5f:99",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.112",
+            "mac": "e2:cf:68:d7:35:4c",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.113",
+            "mac": "3e:4d:a9:a8:6f:54",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.114",
+            "mac": "a6:96:b1:82:31:69",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.119",
+            "mac": "2a:20:e0:c5:e4:19",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.117",
+            "mac": "8e:5e:b1:74:b4:99",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.122",
+            "mac": "aa:06:d1:9f:c5:ba",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.121",
+            "mac": "a8:51:5b:d7:a4:7f",
+            "vendor": "SamsungE",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.120",
+            "mac": "76:aa:88:21:fb:76",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.123",
+            "mac": "8a:fb:59:29:9d:85",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.124",
+            "mac": "4a:0e:22:26:49:cd",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.126",
+            "mac": "1e:89:a1:da:d5:6b",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.130",
+            "mac": "de:35:83:30:3d:ab",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.129",
+            "mac": "16:f1:0d:7c:eb:c5",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.132",
+            "mac": "d2:81:68:d8:1f:99",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.134",
+            "mac": "f6:b7:db:1d:37:d6",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.135",
+            "mac": "d2:81:ab:4e:5e:e5",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.136",
+            "mac": "16:2e:77:84:b9:1a",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.131",
+            "mac": "44:1b:88:3e:dc:b5",
+            "vendor": "Apple",
+            "trust_score": -9,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.138",
+            "mac": "76:fa:00:d0:7a:a2",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.139",
+            "mac": "ca:f4:b7:1f:d4:25",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.140",
+            "mac": "92:c4:e4:e1:c7:a4",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.141",
+            "mac": "fa:9f:de:eb:58:80",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.145",
+            "mac": "86:4e:6d:84:3a:82",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.144",
+            "mac": "36:99:a6:90:6f:57",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.142",
+            "mac": "06:a5:e8:0c:29:52",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.146",
+            "mac": "46:75:6b:2b:a4:51",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.152",
+            "mac": "b6:77:51:32:eb:b9",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.149",
+            "mac": "86:ea:08:12:96:8b",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.151",
+            "mac": "1e:bd:c5:0f:7b:6f",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.150",
+            "mac": "12:84:65:ff:0f:41",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.153",
+            "mac": "52:45:ab:4f:c6:a6",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.147",
+            "mac": "a6:14:21:cf:4a:7f",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.155",
+            "mac": "6a:31:33:23:a8:2a",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.154",
+            "mac": "22:bb:80:44:d0:01",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.157",
+            "mac": "42:05:67:99:46:21",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.158",
+            "mac": "b2:22:88:42:28:76",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.163",
+            "mac": "06:1f:28:52:b3:4b",
+            "vendor": "UNKNOWN",
+            "trust_score": -55,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.170",
+            "mac": "a8:ca:77:77:29:36",
+            "vendor": "UNKNOWN",
+            "trust_score": -9,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.173",
+            "mac": "fc:03:9f:1a:50:f2",
+            "vendor": "SamsungE",
+            "trust_score": -39,
+            "flagged": false
+        },
+        {
+            "time_detected": "2025-10-31 18:19:18",
+            "ip": "10.150.253.162",
+            "mac": "9c:58:84:5d:29:a6",
+            "vendor": "UNKNOWN",
+            "trust_score": -9,
+            "flagged": false
+        }
+    ]
+]

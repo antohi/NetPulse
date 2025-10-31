@@ -1,3 +1,4 @@
+import json
 import threading
 import time
 from colorama import Fore, Style
@@ -60,16 +61,29 @@ class LiveMonitor:
     # Saves all scan history to a CSV file for later review.
     # Each row includes timestamp, IP, MAC, vendor, and trust score.
     def log_results(self):
+        # Build a clean list of all recorded devices across scans
+        history_data = []
+        for scan in self.scan_history:
+            timestamp_batch = []
+            for rec in scan.values():
+                record = {
+                    "time_detected": rec.time_detected.strftime("%Y-%m-%d %H:%M:%S"),
+                    "ip": rec.ip,
+                    "mac": rec.mac,
+                    "vendor": rec.vendor,
+                    "trust_score": rec.trust_score,
+                    "flagged": rec.flagged if hasattr(rec, "flagged") else False
+                }
+                timestamp_batch.append(record)
+            history_data.append(timestamp_batch)
+
+        filename = "logs/scan_history.json"
         try:
-            csv_path = "logs/net_log.csv"
-            with open(csv_path, "w", newline="") as f:
-                writer = csv.writer(f)
-                writer.writerow(["Time", "IP", "MAC", "Device", "Score"])
-                for scan in self.scan_history:
-                    for rec in scan.values():
-                        writer.writerow([rec.time_detected, rec.ip, rec.mac, rec.vendor, rec.trust_score])
-        except Exception as e:
-            return f"{Fore.LIGHTRED_EX} unable to write CSV network log: {e}"
+            with open(filename, "w") as json_file:
+                json.dump(history_data, json_file, indent=4)
+            print(f"{Fore.LIGHTGREEN_EX}[SUCCESS] Scan history written to {filename}{Style.RESET_ALL}")
+        except IOError as e:
+            print(f"{Fore.LIGHTRED_EX}[ERROR] Unable to write scan history: {e}{Style.RESET_ALL}")
 
     def flag_device(self, ip):
         self.flagged_devices.append(ip)
