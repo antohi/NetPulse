@@ -1,7 +1,10 @@
+import datetime
+import os
 import threading
 import time
 from colorama import Fore, Style
 import csv
+import sqlite3
 
 class LiveMonitor:
     def __init__(self, scan_obj, interval=10):
@@ -11,6 +14,8 @@ class LiveMonitor:
         self.continue_monitoring = True
         self.thread = None
         self.scan_history = []
+
+
 
     # Starts live network monitoring in a background thread
     def start(self):
@@ -22,7 +27,14 @@ class LiveMonitor:
     def monitor(self):
         while self.continue_monitoring:
             current_scan = self.scanner.scan()
+
+            # Detect & display changes
             self.detect_changes(current_scan)
+
+            # ✅ Log the entire scan to SQLite
+            self.log_scan_to_db(current_scan)
+
+            # Keep old logic for in-memory history
             self.scan_history.append(current_scan)
             self.previous_scan = current_scan
             time.sleep(self.interval)
@@ -32,9 +44,10 @@ class LiveMonitor:
     def detect_changes(self, current_scan):
         print("-"*150)
         for ip, device in current_scan.items():
-            if ip not in self.previous_scan and device.trust_score < 0:
+            if self.device_exists(device.mac) and device.trust_score < 0:
                 print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
-            elif ip not in self.previous_scan:
+                '''
+            elif not self.device_exists(device.mac):
                 print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device}{Style.RESET_ALL}")
             else:
                 prev = self.previous_scan[ip]
@@ -46,6 +59,7 @@ class LiveMonitor:
                     print(f"{Fore.LIGHTWHITE_EX}[-] [NO CHANGE]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
                 else:
                     print(f"{Fore.LIGHTWHITE_EX}[-] [No Change] {device}{Style.RESET_ALL}")
+                '''
             print("-" * 150)
 
     # Stops the monitoring loop and waits for the thread to exit cleanly.
@@ -67,6 +81,44 @@ class LiveMonitor:
                         writer.writerow([rec.time_detected, rec.ip, rec.mac, rec.vendor, rec.trust_score])
         except Exception as e:
             return f"{Fore.LIGHTRED_EX} unable to write CSV network log: {e}"
+
+    def log_scan_to_db(self, scan):
+        DB_PATH = "logs/netpulse.db"
+        conn = sqlite3.connect(DB_PATH)
+        c = conn.cursor()
+
+        # Make sure table exists
+        c.execute("""
+        CREATE TABLE IF NOT EXISTS device_history (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            scan_time TEXT,
+            ip TEXT,
+            mac TEXT,
+            vendor TEXT,
+            trust_score INTEGER,
+            flagged INTEGER
+        )
+        """)
+
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        for dev in scan.values():
+            c.execute("""
+            INSERT INTO device_history (scan_time, ip, mac, vendor, trust_score, flagged)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """, (now, dev.ip, dev.mac, dev.vendor, dev.trust_score, int(getattr(dev, "flagged", False))))
+
+        conn.commit()
+        conn.close()
+
+    def device_exists(self, mac):
+        conn = sqlite3.connect("logs/netpulse.db")
+        c = conn.cursor()
+        c.execute("SELECT 1 FROM device_history WHERE mac = ? LIMIT 1;", (mac,))
+        exists = c.fetchone() is not None
+        conn.close()
+        return exists
+
+
 
 
 
