@@ -19,6 +19,8 @@ class Device:
         # Full info dictionary for reference or export
         self.info = info
 
+        self.flagged = False
+
     # Returns the full breakdown of how the device was scored.
     def explain_scr(self):
         return self.info

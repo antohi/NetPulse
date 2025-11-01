@@ -86,14 +86,20 @@ def start_live_monitor():
         if user_input == "s":
             print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Starting scan...{Style.RESET_ALL}")
             lm.start()
+
         elif user_input.lower() == 'x':
             print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] Exiting...{Style.RESET_ALL}")
             lm.stop_monitoring()
             print(f"\n{Fore.LIGHTWHITE_EX}[+] Stopped Live Monitor.{Style.RESET_ALL}")
             lm.log_results()
             return False
+
         else:
             print(f"\n{Fore.LIGHTRED_EX}[ERROR] Invalid input!{Style.RESET_ALL}")
+
+def flag_device():
+    device_to_flag = input(f"{Fore.LIGHTWHITE_EX}MAC to flag:{Style.RESET_ALL} ")
+    lm.flag_device(device_to_flag)
 
 # Scan History menu from main menu option
 def scan_history_menu():
@@ -343,6 +349,12 @@ while exit == False:
     elif menu_choice == "4":
         exit = True
         break
+
+    elif menu_choice == "5":
+        flag_device()
+
+    elif menu_choice == "6":
+        lm.get_all_flagged_devices()
 
     # Invalid menu option
     else:

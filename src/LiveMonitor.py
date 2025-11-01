@@ -15,8 +15,6 @@ class LiveMonitor:
         self.thread = None
         self.scan_history = []
 
-
-
     # Starts live network monitoring in a background thread
     def start(self):
         self.continue_monitoring = True
@@ -78,6 +76,8 @@ class LiveMonitor:
         except Exception as e:
             return f"{Fore.LIGHTRED_EX} unable to write CSV network log: {e}"
 
+
+
     def log_scan_to_db(self, scan):
         DB_PATH = "logs/netpulse.db"
         conn = sqlite3.connect(DB_PATH)
@@ -106,6 +106,33 @@ class LiveMonitor:
         conn.commit()
         conn.close()
 
+    def flag_device(self, mac):
+        conn = sqlite3.connect("logs/netpulse.db")
+        c = conn.cursor()
+
+        # Find the latest row ID for this MAC
+        c.execute("""
+            SELECT id FROM device_history
+            WHERE mac = ?
+            ORDER BY scan_time DESC
+            LIMIT 1;
+        """, (mac,))
+        row = c.fetchone()
+
+        if row:
+            row_id = row[0]
+            c.execute("""
+                UPDATE device_history
+                SET flagged = 1
+                WHERE id = ?;
+            """, (row_id,))
+            conn.commit()
+            print(f"{Fore.GREEN}[DB] Device {mac} flagged successfully (row ID {row_id}).{Style.RESET_ALL}")
+        else:
+            print(f"{Fore.YELLOW}[DB] No device found for MAC {mac}.{Style.RESET_ALL}")
+
+        conn.close()
+
     def device_exists(self, mac):
         conn = sqlite3.connect("logs/netpulse.db")
         c = conn.cursor()
@@ -127,6 +154,21 @@ class LiveMonitor:
         row = c.fetchone()
         conn.close()
         return row[0] if row else None
+
+    def get_all_flagged_devices(self):
+        conn = sqlite3.connect("logs/netpulse.db")
+        c = conn.cursor()
+        c.execute("""
+            SELECT scan_time, ip, mac, vendor, trust_score
+            FROM device_history
+            WHERE flagged = 1
+            ORDER BY scan_time DESC;
+        """)
+        rows = c.fetchall()
+        conn.close()
+        print(rows)
+
+
 
 
 
