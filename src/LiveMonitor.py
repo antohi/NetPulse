@@ -31,7 +31,7 @@ class LiveMonitor:
             # Detect & display changes
             self.detect_changes(current_scan)
 
-            # ✅ Log the entire scan to SQLite
+            # Log the entire scan to SQLite
             self.log_scan_to_db(current_scan)
 
             # Keep old logic for in-memory history
@@ -44,22 +44,18 @@ class LiveMonitor:
     def detect_changes(self, current_scan):
         print("-"*150)
         for ip, device in current_scan.items():
-            if self.device_exists(device.mac) and device.trust_score < 0:
+            if not self.device_exists(device.mac) and device.trust_score < 0:
                 print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
-                '''
             elif not self.device_exists(device.mac):
                 print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device}{Style.RESET_ALL}")
             else:
-                prev = self.previous_scan[ip]
-                if device.mac != prev.mac:
-                    print(f"{Fore.RED}[!!!] [MAC CHANGE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} on {ip}: {prev.mac} → {device.mac}{Style.RESET_ALL}")
-                elif device.trust_score != prev.trust_score:
-                    print(f"{Fore.RED}[!!!] [SCORE CHANGE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {ip} → {prev.trust_score} ➝ {device.trust_score}{Style.RESET_ALL}")
+                prev_score = self.get_prev_dev_score(device.mac)
+                if device.trust_score != prev_score:
+                    print(f"{Fore.RED}[!] [SCORE CHANGE ({prev_score} ➝ {device.trust_score})]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device} {Style.RESET_ALL}")
                 elif device.trust_score < 0:
                     print(f"{Fore.LIGHTWHITE_EX}[-] [NO CHANGE]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
                 else:
                     print(f"{Fore.LIGHTWHITE_EX}[-] [No Change] {device}{Style.RESET_ALL}")
-                '''
             print("-" * 150)
 
     # Stops the monitoring loop and waits for the thread to exit cleanly.
@@ -117,6 +113,21 @@ class LiveMonitor:
         exists = c.fetchone() is not None
         conn.close()
         return exists
+
+    def get_prev_dev_score(self, mac):
+        conn = sqlite3.connect("logs/netpulse.db")
+        c = conn.cursor()
+        c.execute("""
+            SELECT trust_score
+            FROM device_history
+            WHERE mac = ?
+            ORDER BY scan_time DESC
+            LIMIT 1;
+        """, (mac,))
+        row = c.fetchone()
+        conn.close()
+        return row[0] if row else None
+
 
 
 
