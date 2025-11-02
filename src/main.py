@@ -8,6 +8,9 @@ from DatabaseManager import DatabaseManager as db
 import os
 import sys
 import ctypes
+from Device import Device
+
+
 
 s = Scan.Scan()
 lm = LiveMonitor(s)
@@ -356,7 +359,9 @@ while exit == False:
         flag_device()
 
     elif menu_choice == "6":
-        db.get_all_flagged_devices()
+
+        for row in db.get_all_flagged_devices():
+            print(row)
 
     # Invalid menu option
     else:

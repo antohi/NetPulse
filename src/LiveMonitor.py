@@ -24,11 +24,11 @@ class LiveMonitor:
         while self.continue_monitoring:
             current_scan = self.scanner.scan()
 
-            # Detect & display changes
-            self.detect_changes(current_scan)
-
             # Log the entire scan to SQLite
             db.log_scan_to_db(current_scan)
+
+            # Detect & display changes
+            self.detect_changes(current_scan)
 
             # Keep old logic for in-memory history
             self.scan_history.append(current_scan)
@@ -41,17 +41,17 @@ class LiveMonitor:
         print("-"*150)
         for ip, device in current_scan.items():
             if not db.device_exists(device.mac) and device.trust_score < 0:
-                print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
+                print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTYELLOW_EX} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
             elif not db.device_exists(device.mac):
                 print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device}{Style.RESET_ALL}")
             else:
                 prev_score = db.get_prev_dev_score(device.mac)
                 if db.is_flagged(device.mac):
-                    print(f"{Fore.RED}[!!! FLAGGED]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device} {Style.RESET_ALL}")
+                    print(f"{Fore.RED}[!!!] [FLAGGED]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device} {Style.RESET_ALL}")
                 elif device.trust_score != prev_score:
-                    print(f"{Fore.RED}[!] [SCORE CHANGE ({prev_score} ➝ {device.trust_score})]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device} {Style.RESET_ALL}")
+                    print(f"{Fore.LIGHTYELLOW_EX}[!] [SCORE CHANGE ({prev_score} ➝ {device.trust_score})]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device} {Style.RESET_ALL}")
                 elif device.trust_score < 0:
-                    print(f"{Fore.LIGHTWHITE_EX}[-] [NO CHANGE]{Style.RESET_ALL}{Fore.RED} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
+                    print(f"{Fore.LIGHTWHITE_EX}[-] [NO CHANGE]{Style.RESET_ALL}{Fore.LIGHTYELLOW_EX} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
                 else:
                     print(f"{Fore.LIGHTWHITE_EX}[-] [NO CHANGE] {device}{Style.RESET_ALL}")
             print("-" * 150)

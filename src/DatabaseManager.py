@@ -20,6 +20,11 @@ class DatabaseManager:
             ip TEXT,
             mac TEXT,
             vendor TEXT,
+            vendor_type TEXT,
+            vendor_trust TEXT,
+            mac_type TEXT,
+            known_device TEXT,
+            device_name TEXT,
             trust_score INTEGER,
             flagged INTEGER
         )
@@ -35,13 +40,18 @@ class DatabaseManager:
             previously_flagged = c.fetchone() is not None
 
             c.execute("""
-            INSERT INTO device_history (scan_time, ip, mac, vendor, trust_score, flagged)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO device_history (scan_time, ip, mac, vendor, vendor_type, vendor_trust, mac_type, known_device, device_name, trust_score, flagged)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 now,
                 dev.ip,
                 dev.mac,
                 dev.vendor,
+                dev.vendor_type,
+                dev.vendor_trust,
+                dev.mac_type,
+                dev.known_device,
+                dev.device_name,
                 dev.trust_score,
                 int(previously_flagged or getattr(dev, "flagged", False))
             ))
@@ -109,14 +119,14 @@ class DatabaseManager:
         conn = sqlite3.connect("logs/netpulse.db")
         c = conn.cursor()
         c.execute("""
-            SELECT scan_time, ip, mac, vendor, trust_score
+            SELECT scan_time, ip, mac, vendor, vendor_type, vendor_trust, mac_type, known_device, device_name, trust_score
             FROM device_history
             WHERE flagged = 1
             ORDER BY scan_time DESC;
         """)
         rows = c.fetchall()
         conn.close()
-        print(rows)
+        return rows
 
     # Checks whether perviously scanned device has already been flagged
     @staticmethod
