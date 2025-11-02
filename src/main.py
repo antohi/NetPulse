@@ -8,9 +8,6 @@ from DatabaseManager import DatabaseManager as db
 import os
 import sys
 import ctypes
-from Device import Device
-
-
 
 s = Scan.Scan()
 lm = LiveMonitor(s)
@@ -74,9 +71,8 @@ def main_menu():
     print(f"{Fore.LIGHTWHITE_EX}1) Live Monitor")
     print(f"2) Scan History")
     print(f"3) Configuration Settings")
-    print(f"4) Exit")
-    print(f"5) Flag Device")
-    print(f"6) Show All Flagged{Style.RESET_ALL}")
+    print(f"4) Flagging")
+    print(f"5) Exit{Style.RESET_ALL}")
 
     return input("> ")
 
@@ -102,9 +98,6 @@ def start_live_monitor():
         else:
             print(f"\n{Fore.LIGHTRED_EX}[ERROR] Invalid input!{Style.RESET_ALL}")
 
-def flag_device():
-    device_to_flag = input(f"{Fore.LIGHTWHITE_EX}MAC to flag:{Style.RESET_ALL} ")
-    db.flag_device(device_to_flag)
 
 # Scan History menu from main menu option
 def scan_history_menu():
@@ -138,6 +131,8 @@ def show_all_scans():
         print(f"\n{Fore.CYAN}-- Scan #{i} --{Style.RESET_ALL}")
         for ip, dev in scan.items():
             print(dev)
+
+# ---Config Options---
 
 # Menu for Configuration Settings
 def configuration_settings_menu():
@@ -201,7 +196,6 @@ def edit_score_config(score_config):
         print(f"\n{Fore.YELLOW}[!] Operation cancelled by user.{Style.RESET_ALL}")
     except Exception as e:
         print(f"{Fore.LIGHTRED_EX}[ERROR] Unexpected issue: {e}{Style.RESET_ALL}")
-
 
 # Submenu options for Known Devices Configurations settings
 def known_dev_config_options():
@@ -296,6 +290,28 @@ def remove_trusted_vendor(trusted_vendors_config):
     except Exception as e:
         print(f"{Fore.LIGHTRED_EX}[ERROR] Unexpected issue while removing vendor: {e}{Style.RESET_ALL}")
 
+# --- Flagging ---
+
+# Menu for Flagging
+def flagging_menu():
+    print(f"\n{Fore.LIGHTWHITE_EX}===[{Style.RESET_ALL}{Fore.BLUE}Flagging{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}]==={Style.RESET_ALL}")
+    print(f"{psob()}{style_heading("MENU")}{pscb()}")
+    print(f"{Fore.LIGHTWHITE_EX}1) Flag Device{Style.RESET_ALL}")
+    print(f"{Fore.LIGHTWHITE_EX}2) Show All Occurrences{Style.RESET_ALL}")
+
+    return input("> ")
+
+# Flags MAC address of device
+def flag_device():
+    device_to_flag = input(f"{Fore.LIGHTWHITE_EX}MAC to flag:{Style.RESET_ALL} ")
+    db.flag_device(device_to_flag)
+
+# Shows all occurrences of flagged devices
+def show_all_flagged():
+    for row in db.get_all_flagged_devices():
+        print(row)
+
+#
 # UI
 exit = False
 while exit == False:
@@ -350,18 +366,17 @@ while exit == False:
                 continue
         else:
             continue
-    # Exit
+
     elif menu_choice == "4":
+        if flagging_menu() == "1":
+           flag_device()
+        elif flagging_menu() == "2":
+            show_all_flagged()
+
+    # Exit
+    elif menu_choice == "5":
         exit = True
         break
-
-    elif menu_choice == "5":
-        flag_device()
-
-    elif menu_choice == "6":
-
-        for row in db.get_all_flagged_devices():
-            print(row)
 
     # Invalid menu option
     else:

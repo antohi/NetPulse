@@ -1,5 +1,4 @@
 import sqlite3
-from datetime import datetime
 
 class DatabaseManager:
 
@@ -31,8 +30,6 @@ class DatabaseManager:
         """)
         c.execute("CREATE INDEX IF NOT EXISTS idx_mac ON device_history(mac);")
 
-        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
         # Checks if mac has been flagged before
         for dev in scan.values():
             # If MAC was ever flagged before, keep it flagged
@@ -43,7 +40,7 @@ class DatabaseManager:
             INSERT INTO device_history (scan_time, ip, mac, vendor, vendor_type, vendor_trust, mac_type, known_device, device_name, trust_score, flagged)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
-                now,
+                dev.time_detected,
                 dev.ip,
                 dev.mac,
                 dev.vendor,

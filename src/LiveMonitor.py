@@ -41,9 +41,9 @@ class LiveMonitor:
         print("-"*150)
         for ip, device in current_scan.items():
             if not db.device_exists(device.mac) and device.trust_score < 0:
-                print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTYELLOW_EX} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
+                print(f"{Fore.CYAN}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTYELLOW_EX} [LOW SCORE] {Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{device}{Style.RESET_ALL}")
             elif not db.device_exists(device.mac):
-                print(f"{Fore.BLUE}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device}{Style.RESET_ALL}")
+                print(f"{Fore.CYAN}[+] [NEW DEVICE]{Style.RESET_ALL}{Fore.LIGHTWHITE_EX} {device}{Style.RESET_ALL}")
             else:
                 prev_score = db.get_prev_dev_score(device.mac)
                 if db.is_flagged(device.mac):
