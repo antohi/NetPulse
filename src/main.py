@@ -4,16 +4,15 @@ from colorama import Fore, Style
 import requests
 from VirusTotalAPI import VirusTotalAPI
 from ConfigManager import ConfigManager
+from DatabaseManager import DatabaseManager as db
+import os
+import sys
+import ctypes
 
 s = Scan.Scan()
 lm = LiveMonitor(s)
 vt = VirusTotalAPI()
 sc = ConfigManager()
-
-import os
-import sys
-import ctypes
-from colorama import Fore, Style
 
 # Checks program is being run as root
 def check_privileges():
@@ -72,7 +71,10 @@ def main_menu():
     print(f"{Fore.LIGHTWHITE_EX}1) Live Monitor")
     print(f"2) Scan History")
     print(f"3) Configuration Settings")
-    print(f"4) Exit{Style.RESET_ALL}")
+    print(f"4) Exit")
+    print(f"5) Flag Device")
+    print(f"6) Show All Flagged{Style.RESET_ALL}")
+
     return input("> ")
 
 # Starts live monitoring
@@ -99,7 +101,7 @@ def start_live_monitor():
 
 def flag_device():
     device_to_flag = input(f"{Fore.LIGHTWHITE_EX}MAC to flag:{Style.RESET_ALL} ")
-    lm.flag_device(device_to_flag)
+    db.flag_device(device_to_flag)
 
 # Scan History menu from main menu option
 def scan_history_menu():
@@ -354,7 +356,7 @@ while exit == False:
         flag_device()
 
     elif menu_choice == "6":
-        lm.get_all_flagged_devices()
+        db.get_all_flagged_devices()
 
     # Invalid menu option
     else:
