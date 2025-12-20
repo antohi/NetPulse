@@ -125,7 +125,7 @@ class DatabaseManager:
         conn.close()
         return rows
 
-    # Checks whether perviously scanned device has already been flagged
+    # Checks whether previously scanned device has already been flagged
     @staticmethod
     def is_flagged(mac) -> bool:
         conn = sqlite3.connect("logs/netpulse.db")

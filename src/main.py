@@ -305,13 +305,14 @@ def flagging_menu():
 def flag_device():
     device_to_flag = input(f"{Fore.LIGHTWHITE_EX}MAC to flag:{Style.RESET_ALL} ")
     db.flag_device(device_to_flag)
+    print(f"\n{Fore.LIGHTGREEN_EX}[SUCCESS] {device_to_flag} has been flagged.{Style.RESET_ALL}")
+
 
 # Shows all occurrences of flagged devices
 def show_all_flagged():
     for row in db.get_all_flagged_devices():
         print(row)
 
-#
 # UI
 exit = False
 while exit == False:
